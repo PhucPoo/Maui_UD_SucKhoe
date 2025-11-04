@@ -1,0 +1,86 @@
+<Shell  
+    x:Class="UD_SucKhoe.AppShell"  
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+    xmlns:local="clr-namespace:UD_SucKhoe"  
+    xmlns:controls="clr-namespace:UD_SucKhoe.Controls"
+    Shell.FlyoutBehavior="Disabled"  
+    Shell.NavBarIsVisible="True"
+    Shell.TabBarIsVisible="False">
+
+    <!-- Custom Navigation Bar Style -->
+    <Shell.Resources>
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="White"/>
+            <Setter Property="BarTextColor" Value="Black"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="TitleViewGrid">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Shell.Resources>
+
+    <ShellContent  
+        Title="Health Data"  
+        ContentTemplate="{DataTemplate local:MainPage}"  
+        Route="MainPage"/>
+
+    <!-- Custom Title View with Menu and Login buttons -->
+    <Shell.TitleView>
+        <Grid Padding="4,0,4,4">
+            <Border Margin="0,0,0,0"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+               
+
+                <Grid ColumnDefinitions="Auto,*,Auto" HeightRequest="44">
+                    <!-- Menu Button (Left) -->
+                    <Border Grid.Column="0"
+                            StrokeThickness="0"
+                            Padding="8"
+                            BackgroundColor="Transparent"
+                            WidthRequest="44"
+                            HeightRequest="44"
+                            SemanticProperties.Description="Menu">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMenuTapped"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                            <BoxView Color="Black" HeightRequest="2" WidthRequest="24" HorizontalOptions="Center"/>
+                            <BoxView Color="Black" HeightRequest="2" WidthRequest="24" HorizontalOptions="Center"/>
+                            <BoxView Color="Black" HeightRequest="2" WidthRequest="24" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Empty Center Space -->
+                    <BoxView Grid.Column="1" Color="White"/>
+
+                    <!-- Login Button (Right) -->
+                    <Border Grid.Column="2"
+                            Stroke="#007AFF"
+                            StrokeThickness="2"
+                            Padding="12,6"
+                            Margin="0,0,8,0"
+                            BackgroundColor="Transparent"
+                            VerticalOptions="Center"
+                            SemanticProperties.Description="Đăng nhập">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                        </Border.GestureRecognizers>
+                        <Label Text="Đăng nhập"
+                               FontSize="14"
+                               TextColor="#007AFF"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </Border>
+                </Grid>
+            </Border>
+           
+
+        </Grid>
+        
+    </Shell.TitleView>
+</Shell>

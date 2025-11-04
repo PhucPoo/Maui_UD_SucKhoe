@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UD_SucKhoe.Controls.LeftSideModal"
+             IsVisible="False">
+
+    <Grid>
+        <!-- Overlay/Background -->
+        <BoxView BackgroundColor="Black" 
+                 Opacity="0.5"
+                 x:Name="Overlay">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <Border BackgroundColor="White"
+                HorizontalOptions="Start"
+                VerticalOptions="Fill"
+                WidthRequest="280"
+                TranslationX="-280"
+                x:Name="ModalPanel">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,20,20,0"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="4,0" Radius="10" Opacity="0.3"/>
+            </Border.Shadow>
+
+            <Grid RowDefinitions="Auto,*,Auto">
+                <!-- Header v?i n�t ?�ng -->
+                <Grid Grid.Row="0" 
+                      Padding="20,50,20,20"
+                      BackgroundColor="#007AFF">
+                    <Label Text="Menu"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- Content Area -->
+                <ScrollView Grid.Row="1">
+                    <VerticalStackLayout Spacing="0" Padding="0">
+
+                        <!-- Menu Item 1 -->
+                        <Border BackgroundColor="Transparent"
+                                Padding="20,15">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMenuItem1Tapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="??"
+                                       FontSize="24"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Text="Trang ch?"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       VerticalOptions="Center"
+                                       Margin="15,0,0,0"/>
+                                <Label Grid.Column="2"
+                                       Text="�"
+                                       FontSize="20"
+                                       TextColor="#C8C8C8"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <BoxView HeightRequest="1" Color="#E6E6E6" Margin="20,0"/>
+
+                        <!-- Menu Item 2 -->
+                        <Border BackgroundColor="Transparent"
+                                Padding="20,15">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMenuItem2Tapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="??"
+                                       FontSize="24"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Text="C�i ??t"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       VerticalOptions="Center"
+                                       Margin="15,0,0,0"/>
+                                <Label Grid.Column="2"
+                                       Text="�"
+                                       FontSize="20"
+                                       TextColor="#C8C8C8"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <BoxView HeightRequest="1" Color="#E6E6E6" Margin="20,0"/>
+
+                        <!-- Menu Item 3 -->
+                        <Border BackgroundColor="Transparent"
+                                Padding="20,15">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMenuItem3Tapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="??"
+                                       FontSize="24"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Text="H? s?"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       VerticalOptions="Center"
+                                       Margin="15,0,0,0"/>
+                                <Label Grid.Column="2"
+                                       Text="�"
+                                       FontSize="20"
+                                       TextColor="#C8C8C8"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <BoxView HeightRequest="1" Color="#E6E6E6" Margin="20,0"/>
+
+                        <!-- Menu Item 4 -->
+                        <Border BackgroundColor="Transparent"
+                                Padding="20,15">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMenuItem4Tapped"/>
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0"
+                                       Text="??"
+                                       FontSize="24"
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Text="Gi?i thi?u"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       VerticalOptions="Center"
+                                       Margin="15,0,0,0"/>
+                                <Label Grid.Column="2"
+                                       Text="�"
+                                       FontSize="20"
+                                       TextColor="#C8C8C8"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <!-- Footer v?i n�t ?�ng -->
+                <Border Grid.Row="2"
+                        BackgroundColor="#F5F5F7"
+                        Padding="20,15"
+                        Margin="0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCloseButtonTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label Grid.Column="0"
+                               Text="?"
+                               FontSize="24"
+                               TextColor="#FF3B30"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="?�ng"
+                               FontSize="16"
+                               TextColor="#FF3B30"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               Margin="15,0,0,0"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Border>
+    </Grid>
+
+</ContentView>

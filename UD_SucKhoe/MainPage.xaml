@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            
+             x:Class="UD_SucKhoe.MainPage"
+             BackgroundColor="white"
+             >
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="0" Padding="16">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- 4 Category Cards Grid -->
+                <Grid RowDefinitions="140,140"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="12"
+                  RowSpacing="12">
+
+                    <!-- Activity Card -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                        StrokeThickness="0"
+                        Padding="16">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#FF6B47" Offset="0"/>
+                                <GradientStop Color="#FF8B6B" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnActivityTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Grid.Row="0"
+                               Text="Thể dục"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                            <Label Grid.Row="1"
+                               Text="🚴"
+                               FontSize="50"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Mindfulness Card -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                        StrokeThickness="0"
+                        Padding="16">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#8AD8C5" Offset="0"/>
+                                <GradientStop Color="#A6E2D3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMindfulnessTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Grid.Row="0"
+                               Text="Sức khỏe tinh thần"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                            <Label Grid.Row="1"
+                               Text="✨"
+                               FontSize="50"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Nutrition Card -->
+                    <Border Grid.Row="1" Grid.Column="0"
+                        StrokeThickness="0"
+                        Padding="16">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#87ABEE" Offset="0"/>
+                                <GradientStop Color="#A5BFF3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNutritionTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Grid.Row="0"
+                               Text="Dinh dưỡng"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                            <Label Grid.Row="1"
+                               Text="🍌"
+                               FontSize="50"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Sleep Card -->
+                    <Border Grid.Row="1" Grid.Column="1"
+                        StrokeThickness="0"
+                        Padding="16">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#304C9C" Offset="0"/>
+                                <GradientStop Color="#4E6ABA" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.3"/>
+                        </Border.Shadow>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSleepTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid RowDefinitions="Auto,*">
+                            <Label Grid.Row="0"
+                               Text="Giấc ngủ"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                            <Label Grid.Row="1"
+                               Text="🌙"
+                               FontSize="50"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+                <!-- Menu Items -->
+                <VerticalStackLayout Spacing="0" Margin="0,10,0,0">
+
+                    <!-- Body Measurements -->
+                    <Border BackgroundColor="White"
+                        Stroke="#E6E6E6"
+                        StrokeThickness="1"
+                        Padding="16,12"
+                        Margin="0,6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBodyMeasurementsTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0"
+                               Text="⭐"
+                               FontSize="24"
+                               VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                               Text="Số đo cơ thể"
+                               FontSize="16"
+                               TextColor="Black"
+                               VerticalOptions="Center"
+                               Margin="12,0,0,0"/>
+                            <Label Grid.Column="2"
+                               Text="›"
+                               FontSize="24"
+                               TextColor="#C8C8C8"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Health Records -->
+                    <Border BackgroundColor="White"
+                        Stroke="#E6E6E6"
+                        StrokeThickness="1"
+                        Padding="16,12"
+                        Margin="0,6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHealthRecordsTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0"
+                               Text="📋"
+                               FontSize="24"
+                               VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                               Text="Hồ sơ sức khỏe"
+                               FontSize="16"
+                               TextColor="Black"
+                               VerticalOptions="Center"
+                               Margin="12,0,0,0"/>
+                            <Label Grid.Column="2"
+                               Text="›"
+                               FontSize="24"
+                               TextColor="#C8C8C8"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Heart -->
+                    <Border BackgroundColor="White"
+                        Stroke="#E6E6E6"
+                        StrokeThickness="1"
+                        Padding="16,12"
+                        Margin="0,6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHeartTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0"
+                               Text="❤️"
+                               FontSize="24"
+                               VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                               Text="Trái tim"
+                               FontSize="16"
+                               TextColor="Black"
+                               VerticalOptions="Center"
+                               Margin="12,0,0,0"/>
+                            <Label Grid.Column="2"
+                               Text="›"
+                               FontSize="24"
+                               TextColor="#C8C8C8"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Reproductive Health -->
+                    <Border BackgroundColor="White"
+                        Stroke="#E6E6E6"
+                        StrokeThickness="1"
+                        Padding="16,12"
+                        Margin="0,6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnReproductiveHealthTapped"/>
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0"
+                               Text="❀"
+                               FontSize="24"
+                               VerticalOptions="Center"/>
+                            <Label Grid.Column="1"
+                               Text="Sức khỏe sinh sản"
+                               FontSize="16"
+                               TextColor="Black"
+                               VerticalOptions="Center"
+                               Margin="12,0,0,0"/>
+                            <Label Grid.Column="2"
+                               Text="›"
+                               FontSize="24"
+                               TextColor="#C8C8C8"
+                               VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Tab Bar -->
+        <Grid Grid.Row="1"
+              BackgroundColor="White"
+              Padding="0,8,0,20"
+              ColumnDefinitions="*,*,*,*">
+            <Grid.Shadow>
+                <Shadow Brush="Black" Offset="0,-2" Radius="10" Opacity="0.1"/>
+            </Grid.Shadow>
+
+            <!-- Summary Tab -->
+            <VerticalStackLayout Grid.Column="0" 
+                             Spacing="4"
+                             HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSummaryTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="📊"
+                   FontSize="24"
+                   HorizontalOptions="Center"/>
+                <Label Text="Tóm tắt"
+                   FontSize="10"
+                   TextColor="#007AFF"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <!-- Browse Tab (Active) -->
+            <VerticalStackLayout Grid.Column="1" 
+                             Spacing="4"
+                             HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBrowseTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="▦"
+                   FontSize="24"
+                   TextColor="#007AFF"
+                   HorizontalOptions="Center"/>
+                <Label Text="Xem tình trạng"
+                   FontSize="10"
+                   TextColor="#007AFF"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <!-- Sharing Tab -->
+            <VerticalStackLayout Grid.Column="2" 
+                             Spacing="4"
+                             HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSharingTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="❤️"
+                   FontSize="24"
+                   HorizontalOptions="Center"/>
+                <Label Text="Chia sẻ"
+                   FontSize="10"
+                   TextColor="#8E8E93"
+                   HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Medical ID Tab -->
+            <VerticalStackLayout Grid.Column="3" 
+                             Spacing="4"
+                             HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnMedicalIDTapped"/>
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="✱"
+                   FontSize="24"
+                   HorizontalOptions="Center"/>
+                <Label Text="Thông tin y tế"
+                   FontSize="10"
+                   TextColor="#8E8E93"
+                   HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+        </Grid>
+        
+
+    </Grid>
+
+</ContentPage>
