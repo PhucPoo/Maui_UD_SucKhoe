@@ -29,6 +29,11 @@ namespace UD_SucKhoe
             // Quay lại trang chính sau khi đăng nhập thành công
             await Navigation.PopModalAsync();
         }
+        private async void OnForgotPasswordTapped(object sender, EventArgs e)
+        {
+            // Xử lý logic quên mật khẩu ở đây
+            await DisplayAlert("Quên mật khẩu", "Chức năng đang được phát triển", "OK");
+        }
 
         private async void OnRegisterTapped(object sender, EventArgs e)
         {
