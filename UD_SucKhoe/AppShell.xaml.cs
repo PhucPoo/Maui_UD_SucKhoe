@@ -1,12 +1,11 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace UD_SucKhoe
+﻿namespace UD_SucKhoe
 {
     public partial class AppShell : Shell
     {
         public AppShell()
         {
             InitializeComponent();
+
         }
 
         private async void OnMenuTapped(object sender, EventArgs e)
@@ -22,7 +21,6 @@ namespace UD_SucKhoe
             {
                 var loginPage = new LoginPage();
 
-                // Fix for CS0618 and CS8602
                 var currentWindow = Application.Current?.Windows.FirstOrDefault();
                 if (currentWindow?.Page != null)
                 {

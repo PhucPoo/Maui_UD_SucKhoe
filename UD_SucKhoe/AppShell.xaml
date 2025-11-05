@@ -5,8 +5,7 @@
     xmlns:local="clr-namespace:UD_SucKhoe"  
     xmlns:controls="clr-namespace:UD_SucKhoe.Controls"
     Shell.FlyoutBehavior="Disabled"  
-    Shell.NavBarIsVisible="True"
-    Shell.TabBarIsVisible="False">
+   >
 
     <!-- Custom Navigation Bar Style -->
     <Shell.Resources>

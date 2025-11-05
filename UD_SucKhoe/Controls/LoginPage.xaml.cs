@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-
-namespace UD_SucKhoe
+﻿namespace UD_SucKhoe
 {
     public partial class LoginPage : ContentPage
     {
@@ -21,14 +19,19 @@ namespace UD_SucKhoe
                 return;
             }
 
-            // Thực hiện logic đăng nhập ở đây
-            // Ví dụ: gọi API, kiểm tra database, etc.
+            // TODO: kiểm tra logic đăng nhập (API hoặc database)
 
             await DisplayAlert("Thành công", "Đăng nhập thành công!", "OK");
 
-            // Quay lại trang chính sau khi đăng nhập thành công
-            await Navigation.PopModalAsync();
+            // 👉 Chuyển hẳn sang trang chính
+            var currentWindow = Application.Current?.Windows.FirstOrDefault();
+            if (currentWindow != null)
+            {
+                currentWindow.Page = new NavigationPage(new MainPage());
+                NavigationPage.SetHasNavigationBar(currentWindow.Page, true);
+            }
         }
+
         private async void OnForgotPasswordTapped(object sender, EventArgs e)
         {
             // Xử lý logic quên mật khẩu ở đây
@@ -37,8 +40,26 @@ namespace UD_SucKhoe
 
         private async void OnRegisterTapped(object sender, EventArgs e)
         {
-            // Chuyển đến trang đăng ký (bạn cần tạo RegisterPage)
-            await DisplayAlert("Thông báo", "Chức năng đăng ký đang được phát triển", "OK");
+            try
+            {
+                var RegisterPage = new RegisterPage();
+
+                var currentWindow = Application.Current?.Windows.FirstOrDefault();
+                if (currentWindow?.Page != null)
+                {
+                    await currentWindow.Page.Navigation.PushModalAsync(RegisterPage);
+                }
+                else
+                {
+                    await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                await DisplayAlert("Lỗi", ex.Message, "OK");
+            }
+
         }
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
