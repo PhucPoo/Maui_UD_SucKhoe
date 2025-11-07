@@ -1,6 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Threading.Tasks;
 
 namespace UD_SucKhoe.Services
 {
@@ -22,6 +20,10 @@ namespace UD_SucKhoe.Services
             {
                 Console.WriteLine(reader["Name"]);
             }
+        }
+        public string GetConnectionString()
+        {
+            return connectionString;
         }
     }
 }

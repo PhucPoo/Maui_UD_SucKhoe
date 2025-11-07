@@ -4,7 +4,7 @@
              x:Class="UD_SucKhoe.RegisterPage"
              Shell.NavBarIsVisible="False">
 
-    <!-- Background Gradient -->
+    <!-- Nền gradient nhẹ -->
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStop Color="#E8F0FE" Offset="0.0"/>
@@ -15,7 +15,7 @@
 
     <Grid RowDefinitions="*,Auto,*" Padding="30">
 
-        <!-- Login Form -->
+        <!-- Form đăng ký -->
         <Border Grid.Row="1"
                 StrokeThickness="0"
                 BackgroundColor="White"
@@ -27,35 +27,17 @@
 
             <VerticalStackLayout Spacing="20">
 
-                <!-- Title -->
+                <!-- Tiêu đề -->
                 <Label Text="Đăng ký"
                        FontSize="28"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        TextColor="Black"
                        Margin="0,0,0,20"/>
-                <!--Nhập họ và tên-->
-                <VerticalStackLayout Spacing="8">
-                    <Label  Text="FullName"
-                            FontSize="14"
-                            TextColor="#666"/>
-                    <Border StrokeThickness="1"
-                            Stroke="#E0E0E0"
-                            BackgroundColor="White"
-                            Padding="15,12">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="8"/>
-                        </Border.StrokeShape>
-                        <Entry x:Name="FullnameEntry"
-                               Placeholder=""
-                               FontSize="16"
-                               TextColor="Black"/>
-                    </Border>
-                </VerticalStackLayout>
 
-                <!-- Username Field -->
+                <!-- Họ và tên -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Username"
+                    <Label Text="Họ và tên"
                            FontSize="14"
                            TextColor="#666"/>
                     <Border StrokeThickness="1"
@@ -65,16 +47,35 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8"/>
                         </Border.StrokeShape>
-                        <Entry x:Name="UsernameEntry"
-                               Placeholder=""
+                        <Entry x:Name="FullNameEntry"
+                               Placeholder="Nhập họ và tên"
                                FontSize="16"
                                TextColor="Black"/>
                     </Border>
                 </VerticalStackLayout>
 
-                <!-- Password Field -->
+                <!-- Email -->
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="Password"
+                    <Label Text="Email"
+                           FontSize="14"
+                           TextColor="#666"/>
+                    <Border StrokeThickness="1"
+                            Stroke="#E0E0E0"
+                            BackgroundColor="White"
+                            Padding="15,12">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="EmailEntry"
+                               Placeholder="Nhập email"
+                               FontSize="16"
+                               TextColor="Black"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Mật khẩu -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Mật khẩu"
                            FontSize="14"
                            TextColor="#666"/>
                     <Border StrokeThickness="1"
@@ -85,16 +86,34 @@
                             <RoundRectangle CornerRadius="8"/>
                         </Border.StrokeShape>
                         <Entry x:Name="PasswordEntry"
-                               Placeholder=""
+                               Placeholder="Nhập mật khẩu"
                                IsPassword="True"
                                FontSize="16"
                                TextColor="Black"/>
                     </Border>
-
                 </VerticalStackLayout>
-               
 
-                <!-- Login Button -->
+                <!-- Xác nhận mật khẩu -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Xác nhận mật khẩu"
+                           FontSize="14"
+                           TextColor="#666"/>
+                    <Border StrokeThickness="1"
+                            Stroke="#E0E0E0"
+                            BackgroundColor="White"
+                            Padding="15,12">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="ConfirmPasswordEntry"
+                               Placeholder="Nhập lại mật khẩu"
+                               IsPassword="True"
+                               FontSize="16"
+                               TextColor="Black"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Nút đăng ký -->
                 <Button Text="Đăng ký"
                         FontSize="16"
                         FontAttributes="Bold"
@@ -108,14 +127,9 @@
                             <GradientStop Color="#4A90E2" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Button.Background>
-                    <Button.Shadow>
-                        <Shadow Brush="#7B68EE" Offset="0,4" Radius="10" Opacity="0.3"/>
-                    </Button.Shadow>
                 </Button>
 
-
-
-                <!-- Back Button with Gradient Background -->
+                <!-- Nút quay lại -->
                 <Button Text="← Quay lại trang đăng nhập"
                         FontSize="16"
                         TextColor="White"
@@ -128,14 +142,9 @@
                             <GradientStop Color="#4A90E2" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Button.Background>
-                    <Button.Shadow>
-                        <Shadow Brush="Gray" Offset="0,2" Radius="8" Opacity="0.2"/>
-                    </Button.Shadow>
                 </Button>
 
             </VerticalStackLayout>
         </Border>
-
     </Grid>
-
 </ContentPage>

@@ -1,71 +1,64 @@
-﻿namespace UD_SucKhoe
+﻿using UD_SucKhoe.Services;
+
+namespace UD_SucKhoe;
+
+public partial class LoginPage : ContentPage
 {
-    public partial class LoginPage : ContentPage
+    private readonly SqlServerDatabaseService _databaseService;
+
+    public LoginPage()
     {
-        public LoginPage()
+        InitializeComponent();
+        _databaseService = new SqlServerDatabaseService();
+    }
+
+    // Đăng nhập
+    private async void OnLoginButtonClicked(object sender, EventArgs e)
+    {
+        var emailOrUsername = UsernameEntry.Text?.Trim();
+        var password = PasswordEntry.Text?.Trim();
+
+        if (string.IsNullOrEmpty(emailOrUsername) || string.IsNullOrEmpty(password))
         {
-            InitializeComponent();
+            await DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ thông tin đăng nhập!", "OK");
+            return;
         }
 
-        private async void OnLoginButtonClicked(object sender, EventArgs e)
+        var user = await _databaseService.LoginUser(emailOrUsername, password);
+
+        if (user != null)
         {
-            string username = UsernameEntry.Text;
-            string password = PasswordEntry.Text;
+            await DisplayAlert("Thành công", $"Chào mừng {user.FullName}!", "OK");
 
-            // Kiểm tra thông tin đăng nhập
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-            {
-                await DisplayAlert("Lỗi", "Vui lòng nhập đầy đủ thông tin", "OK");
-                return;
-            }
+            // Lưu thông tin đăng nhập
+            Preferences.Set("IsLoggedIn", true);
+            Preferences.Set("UserId", user.UserID);
+            Preferences.Set("Email", user.Email);
+            Preferences.Set("FullName", user.FullName);
 
-            // TODO: kiểm tra logic đăng nhập (API hoặc database)
-
-            await DisplayAlert("Thành công", "Đăng nhập thành công!", "OK");
-
-            // 👉 Chuyển hẳn sang trang chính
-            var currentWindow = Application.Current?.Windows.FirstOrDefault();
-            if (currentWindow != null)
-            {
-                currentWindow.Page = new NavigationPage(new MainPage());
-                NavigationPage.SetHasNavigationBar(currentWindow.Page, true);
-            }
-        }
-
-        private async void OnForgotPasswordTapped(object sender, EventArgs e)
-        {
-            // Xử lý logic quên mật khẩu ở đây
-            await DisplayAlert("Quên mật khẩu", "Chức năng đang được phát triển", "OK");
-        }
-
-        private async void OnRegisterTapped(object sender, EventArgs e)
-        {
-            try
-            {
-                var RegisterPage = new RegisterPage();
-
-                var currentWindow = Application.Current?.Windows.FirstOrDefault();
-                if (currentWindow?.Page != null)
-                {
-                    await currentWindow.Page.Navigation.PushModalAsync(RegisterPage);
-                }
-                else
-                {
-                    await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
-                }
-            }
-            catch (System.Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
-                await DisplayAlert("Lỗi", ex.Message, "OK");
-            }
-
-        }
-
-        private async void OnBackButtonClicked(object sender, EventArgs e)
-        {
-            // Quay lại trang trước
             await Navigation.PopModalAsync();
         }
+        else
+        {
+            await DisplayAlert("Lỗi", "Email hoặc mật khẩu không đúng!", "OK");
+        }
+    }
+
+    // Nhấn "Quên mật khẩu"
+    private async void OnForgotPasswordTapped(object sender, TappedEventArgs e)
+    {
+        await DisplayAlert("Thông báo", "Tính năng quên mật khẩu sẽ sớm được cập nhật.", "OK");
+    }
+
+    // Nhấn "Đăng ký"
+    private async void OnRegisterTapped(object sender, TappedEventArgs e)
+    {
+        await Navigation.PushModalAsync(new RegisterPage());
+    }
+
+    // Nhấn "Quay lại"
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
     }
 }
