@@ -1,27 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            
              x:Class="UD_SucKhoe.MainPage"
              BackgroundColor="white"
-             >
+             Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="*,Auto">
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header with Menu and Login -->
+        <Border Grid.Row="0"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                Padding="4">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.1"/>
+            </Border.Shadow>
+            <Grid ColumnDefinitions="Auto,*,Auto" HeightRequest="50">
+                <!-- Menu Button (Left) -->
+                <Border Grid.Column="0"
+                        StrokeThickness="0"
+                        Padding="8"
+                        BackgroundColor="Transparent"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="Menu">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenuTapped"/>
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                        <BoxView Color="Black" HeightRequest="2" WidthRequest="24" HorizontalOptions="Center"/>
+                        <BoxView Color="Black" HeightRequest="2" WidthRequest="24" HorizontalOptions="Center"/>
+                        <BoxView Color="Black" HeightRequest="2" WidthRequest="24" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+              
+
+                <!-- Login Button (Right) -->
+                <Border Grid.Column="2"
+                        Stroke="#007AFF"
+                        StrokeThickness="2"
+                        Padding="12,6"
+                        Margin="0,0,8,0"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="Đăng nhập">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="Đăng nhập"
+                           FontSize="14"
+                           TextColor="#007AFF"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+        </Border>
 
         <!-- Main Content -->
-        <ScrollView Grid.Row="0" Padding="16">
+        <ScrollView Grid.Row="1" Padding="16">
             <VerticalStackLayout Spacing="20">
 
                 <!-- 4 Category Cards Grid -->
                 <Grid RowDefinitions="140,140"
-                  ColumnDefinitions="*,*"
-                  ColumnSpacing="12"
-                  RowSpacing="12">
+                      ColumnDefinitions="*,*"
+                      ColumnSpacing="12"
+                      RowSpacing="12">
 
                     <!-- Activity Card -->
                     <Border Grid.Row="0" Grid.Column="0"
-                        StrokeThickness="0"
-                        Padding="16">
+                            StrokeThickness="0"
+                            Padding="16">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
                         </Border.StrokeShape>
@@ -39,22 +92,22 @@
                         </Border.GestureRecognizers>
                         <Grid RowDefinitions="Auto,*">
                             <Label Grid.Row="0"
-                               Text="Thể dục"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="White"/>
+                                   Text="Thể dục"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
                             <Label Grid.Row="1"
-                               Text="🚴"
-                               FontSize="50"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                                   Text="🚴"
+                                   FontSize="50"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Mindfulness Card -->
                     <Border Grid.Row="0" Grid.Column="1"
-                        StrokeThickness="0"
-                        Padding="16">
+                            StrokeThickness="0"
+                            Padding="16">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
                         </Border.StrokeShape>
@@ -72,22 +125,22 @@
                         </Border.GestureRecognizers>
                         <Grid RowDefinitions="Auto,*">
                             <Label Grid.Row="0"
-                               Text="Sức khỏe tinh thần"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="White"/>
+                                   Text="Sức khỏe tinh thần"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
                             <Label Grid.Row="1"
-                               Text="✨"
-                               FontSize="50"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                                   Text="✨"
+                                   FontSize="50"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Nutrition Card -->
                     <Border Grid.Row="1" Grid.Column="0"
-                        StrokeThickness="0"
-                        Padding="16">
+                            StrokeThickness="0"
+                            Padding="16">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
                         </Border.StrokeShape>
@@ -105,22 +158,22 @@
                         </Border.GestureRecognizers>
                         <Grid RowDefinitions="Auto,*">
                             <Label Grid.Row="0"
-                               Text="Dinh dưỡng"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="White"/>
+                                   Text="Dinh dưỡng"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
                             <Label Grid.Row="1"
-                               Text="🍌"
-                               FontSize="50"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                                   Text="🍌"
+                                   FontSize="50"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Sleep Card -->
                     <Border Grid.Row="1" Grid.Column="1"
-                        StrokeThickness="0"
-                        Padding="16">
+                            StrokeThickness="0"
+                            Padding="16">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="16"/>
                         </Border.StrokeShape>
@@ -138,15 +191,15 @@
                         </Border.GestureRecognizers>
                         <Grid RowDefinitions="Auto,*">
                             <Label Grid.Row="0"
-                               Text="Giấc ngủ"
-                               FontSize="18"
-                               FontAttributes="Bold"
-                               TextColor="White"/>
+                                   Text="Giấc ngủ"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"/>
                             <Label Grid.Row="1"
-                               Text="🌙"
-                               FontSize="50"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"/>
+                                   Text="🌙"
+                                   FontSize="50"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
@@ -157,10 +210,10 @@
 
                     <!-- Body Measurements -->
                     <Border BackgroundColor="White"
-                        Stroke="#E6E6E6"
-                        StrokeThickness="1"
-                        Padding="16,12"
-                        Margin="0,6">
+                            Stroke="#E6E6E6"
+                            StrokeThickness="1"
+                            Padding="16,12"
+                            Margin="0,6">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
@@ -169,29 +222,29 @@
                         </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <Label Grid.Column="0"
-                               Text="⭐"
-                               FontSize="24"
-                               VerticalOptions="Center"/>
+                                   Text="⭐"
+                                   FontSize="24"
+                                   VerticalOptions="Center"/>
                             <Label Grid.Column="1"
-                               Text="Số đo cơ thể"
-                               FontSize="16"
-                               TextColor="Black"
-                               VerticalOptions="Center"
-                               Margin="12,0,0,0"/>
+                                   Text="Số đo cơ thể"
+                                   FontSize="16"
+                                   TextColor="Black"
+                                   VerticalOptions="Center"
+                                   Margin="12,0,0,0"/>
                             <Label Grid.Column="2"
-                               Text="›"
-                               FontSize="24"
-                               TextColor="#C8C8C8"
-                               VerticalOptions="Center"/>
+                                   Text="›"
+                                   FontSize="24"
+                                   TextColor="#C8C8C8"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Health Records -->
                     <Border BackgroundColor="White"
-                        Stroke="#E6E6E6"
-                        StrokeThickness="1"
-                        Padding="16,12"
-                        Margin="0,6">
+                            Stroke="#E6E6E6"
+                            StrokeThickness="1"
+                            Padding="16,12"
+                            Margin="0,6">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
@@ -200,29 +253,29 @@
                         </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <Label Grid.Column="0"
-                               Text="📋"
-                               FontSize="24"
-                               VerticalOptions="Center"/>
+                                   Text="📋"
+                                   FontSize="24"
+                                   VerticalOptions="Center"/>
                             <Label Grid.Column="1"
-                               Text="Hồ sơ sức khỏe"
-                               FontSize="16"
-                               TextColor="Black"
-                               VerticalOptions="Center"
-                               Margin="12,0,0,0"/>
+                                   Text="Hồ sơ sức khỏe"
+                                   FontSize="16"
+                                   TextColor="Black"
+                                   VerticalOptions="Center"
+                                   Margin="12,0,0,0"/>
                             <Label Grid.Column="2"
-                               Text="›"
-                               FontSize="24"
-                               TextColor="#C8C8C8"
-                               VerticalOptions="Center"/>
+                                   Text="›"
+                                   FontSize="24"
+                                   TextColor="#C8C8C8"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Heart -->
                     <Border BackgroundColor="White"
-                        Stroke="#E6E6E6"
-                        StrokeThickness="1"
-                        Padding="16,12"
-                        Margin="0,6">
+                            Stroke="#E6E6E6"
+                            StrokeThickness="1"
+                            Padding="16,12"
+                            Margin="0,6">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
@@ -231,29 +284,29 @@
                         </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <Label Grid.Column="0"
-                               Text="❤️"
-                               FontSize="24"
-                               VerticalOptions="Center"/>
+                                   Text="❤️"
+                                   FontSize="24"
+                                   VerticalOptions="Center"/>
                             <Label Grid.Column="1"
-                               Text="Trái tim"
-                               FontSize="16"
-                               TextColor="Black"
-                               VerticalOptions="Center"
-                               Margin="12,0,0,0"/>
+                                   Text="Trái tim"
+                                   FontSize="16"
+                                   TextColor="Black"
+                                   VerticalOptions="Center"
+                                   Margin="12,0,0,0"/>
                             <Label Grid.Column="2"
-                               Text="›"
-                               FontSize="24"
-                               TextColor="#C8C8C8"
-                               VerticalOptions="Center"/>
+                                   Text="›"
+                                   FontSize="24"
+                                   TextColor="#C8C8C8"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
                     <!-- Reproductive Health -->
                     <Border BackgroundColor="White"
-                        Stroke="#E6E6E6"
-                        StrokeThickness="1"
-                        Padding="16,12"
-                        Margin="0,6">
+                            Stroke="#E6E6E6"
+                            StrokeThickness="1"
+                            Padding="16,12"
+                            Margin="0,6">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="12"/>
                         </Border.StrokeShape>
@@ -262,20 +315,20 @@
                         </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <Label Grid.Column="0"
-                               Text="❀"
-                               FontSize="24"
-                               VerticalOptions="Center"/>
+                                   Text="❀"
+                                   FontSize="24"
+                                   VerticalOptions="Center"/>
                             <Label Grid.Column="1"
-                               Text="Sức khỏe sinh sản"
-                               FontSize="16"
-                               TextColor="Black"
-                               VerticalOptions="Center"
-                               Margin="12,0,0,0"/>
+                                   Text="Sức khỏe sinh sản"
+                                   FontSize="16"
+                                   TextColor="Black"
+                                   VerticalOptions="Center"
+                                   Margin="12,0,0,0"/>
                             <Label Grid.Column="2"
-                               Text="›"
-                               FontSize="24"
-                               TextColor="#C8C8C8"
-                               VerticalOptions="Center"/>
+                                   Text="›"
+                                   FontSize="24"
+                                   TextColor="#C8C8C8"
+                                   VerticalOptions="Center"/>
                         </Grid>
                     </Border>
 
@@ -285,7 +338,7 @@
         </ScrollView>
 
         <!-- Bottom Tab Bar -->
-        <Grid Grid.Row="1"
+        <Grid Grid.Row="2"
               BackgroundColor="White"
               Padding="0,8,0,20"
               ColumnDefinitions="*,*,*,*">
@@ -295,73 +348,72 @@
 
             <!-- Summary Tab -->
             <VerticalStackLayout Grid.Column="0" 
-                             Spacing="4"
-                             HorizontalOptions="Center">
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnSummaryTapped"/>
                 </VerticalStackLayout.GestureRecognizers>
                 <Label Text="📊"
-                   FontSize="24"
-                   HorizontalOptions="Center"/>
+                       FontSize="24"
+                       HorizontalOptions="Center"/>
                 <Label Text="Tóm tắt"
-                   FontSize="10"
-                   TextColor="#007AFF"
-                   HorizontalOptions="Center"
-                   FontAttributes="Bold"/>
+                       FontSize="10"
+                       TextColor="#007AFF"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"/>
             </VerticalStackLayout>
 
             <!-- Browse Tab (Active) -->
             <VerticalStackLayout Grid.Column="1" 
-                             Spacing="4"
-                             HorizontalOptions="Center">
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnBrowseTapped"/>
                 </VerticalStackLayout.GestureRecognizers>
                 <Label Text="▦"
-                   FontSize="24"
-                   TextColor="#007AFF"
-                   HorizontalOptions="Center"/>
+                       FontSize="24"
+                       TextColor="#007AFF"
+                       HorizontalOptions="Center"/>
                 <Label Text="Xem tình trạng"
-                   FontSize="10"
-                   TextColor="#007AFF"
-                   HorizontalOptions="Center"
-                   FontAttributes="Bold"/>
+                       FontSize="10"
+                       TextColor="#007AFF"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"/>
             </VerticalStackLayout>
 
             <!-- Sharing Tab -->
             <VerticalStackLayout Grid.Column="2" 
-                             Spacing="4"
-                             HorizontalOptions="Center">
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnSharingTapped"/>
                 </VerticalStackLayout.GestureRecognizers>
                 <Label Text="❤️"
-                   FontSize="24"
-                   HorizontalOptions="Center"/>
+                       FontSize="24"
+                       HorizontalOptions="Center"/>
                 <Label Text="Chia sẻ"
-                   FontSize="10"
-                   TextColor="#8E8E93"
-                   HorizontalOptions="Center"/>
+                       FontSize="10"
+                       TextColor="#8E8E93"
+                       HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
             <!-- Medical ID Tab -->
             <VerticalStackLayout Grid.Column="3" 
-                             Spacing="4"
-                             HorizontalOptions="Center">
+                                 Spacing="4"
+                                 HorizontalOptions="Center">
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnMedicalIDTapped"/>
                 </VerticalStackLayout.GestureRecognizers>
                 <Label Text="✱"
-                   FontSize="24"
-                   HorizontalOptions="Center"/>
+                       FontSize="24"
+                       HorizontalOptions="Center"/>
                 <Label Text="Thông tin y tế"
-                   FontSize="10"
-                   TextColor="#8E8E93"
-                   HorizontalOptions="Center"/>
+                       FontSize="10"
+                       TextColor="#8E8E93"
+                       HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
         </Grid>
-        
 
     </Grid>
 

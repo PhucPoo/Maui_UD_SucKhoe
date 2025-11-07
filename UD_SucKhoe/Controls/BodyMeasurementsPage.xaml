@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UD_SucKhoe.BodyMeasurementsPage"
+             Title="Chỉ Số Cơ Thể"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header -->
+            <Border BackgroundColor="White" 
+                    StrokeThickness="0"
+                    Padding="20"
+                    Shadow="{Shadow Brush=Gray, Offset='0,2', Radius=10, Opacity=0.3}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Nhập Thông Tin Cơ Thể"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#2C3E50"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Cập nhật chiều cao và cân nặng của bạn"
+                           FontSize="14"
+                           TextColor="#7F8C8D"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Height Input -->
+            <Border BackgroundColor="White" 
+                    StrokeThickness="0"
+                    Padding="20"
+                    Shadow="{Shadow Brush=Gray, Offset='0,2', Radius=10, Opacity=0.3}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Chiều Cao"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#2C3E50"/>
+
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Entry x:Name="HeightEntry"
+                               Grid.Column="0"
+                               Placeholder="Nhập chiều cao"
+                               Keyboard="Numeric"
+                               FontSize="16"
+                               TextColor="#2C3E50"/>
+                        <Label Grid.Column="1"
+                               Text="cm"
+                               FontSize="16"
+                               TextColor="#7F8C8D"
+                               VerticalOptions="Center"/>
+                    </Grid>
+
+                    <Label x:Name="HeightResultLabel"
+                           FontSize="14"
+                           TextColor="#3498DB"
+                           IsVisible="False"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Weight Input -->
+            <Border BackgroundColor="White" 
+                    StrokeThickness="0"
+                    Padding="20"
+                    Shadow="{Shadow Brush=Gray, Offset='0,2', Radius=10, Opacity=0.3}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Cân Nặng"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#2C3E50"/>
+
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Entry x:Name="WeightEntry"
+                               Grid.Column="0"
+                               Placeholder="Nhập cân nặng"
+                               Keyboard="Numeric"
+                               FontSize="16"
+                               TextColor="#2C3E50"/>
+                        <Label Grid.Column="1"
+                               Text="kg"
+                               FontSize="16"
+                               TextColor="#7F8C8D"
+                               VerticalOptions="Center"/>
+                    </Grid>
+
+                    <Label x:Name="WeightResultLabel"
+                           FontSize="14"
+                           TextColor="#3498DB"
+                           IsVisible="False"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- BMI Result -->
+            <Border x:Name="BMIFrame"
+                    BackgroundColor="White" 
+                    StrokeThickness="0"
+                    Padding="20"
+                    IsVisible="False"
+                    Shadow="{Shadow Brush=Gray, Offset='0,2', Radius=10, Opacity=0.3}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Chỉ Số BMI"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#2C3E50"
+                           HorizontalTextAlignment="Center"/>
+
+                    <Label x:Name="BMIValueLabel"
+                           FontSize="36"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center"/>
+
+                    <Label x:Name="BMIStatusLabel"
+                           FontSize="16"
+                           HorizontalTextAlignment="Center"
+                           FontAttributes="Bold"/>
+
+                    <Label x:Name="BMIDescriptionLabel"
+                           FontSize="14"
+                           TextColor="#7F8C8D"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Action Buttons -->
+            <VerticalStackLayout Spacing="15">
+                <Button Text="Tính BMI"
+                        Clicked="OnCalculateBMIClicked"
+                        BackgroundColor="#3498DB"
+                        TextColor="White"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"/>
+
+                <Button Text="Lưu Thông Tin"
+                        Clicked="OnSaveClicked"
+                        BackgroundColor="#27AE60"
+                        TextColor="White"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50"/>
+
+                <Button Text="Đóng"
+                        Clicked="OnCloseClicked"
+                        BackgroundColor="#95A5A6"
+                        TextColor="White"
+                        FontSize="16"
+                        CornerRadius="10"
+                        HeightRequest="45"/>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

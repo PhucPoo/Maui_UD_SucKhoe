@@ -6,6 +6,35 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
     }
+    private async void OnMenuTapped(object sender, EventArgs e)
+    {
+        // Hiển thị menu
+        await DisplayAlert("Menu", "Menu clicked", "OK");
+    }
+
+    private async void OnLoginTapped(object sender, EventArgs e)
+    {
+        // Thử cách navigation Modal thay vì Shell navigation
+        try
+        {
+            var loginPage = new LoginPage();
+
+            var currentWindow = Application.Current?.Windows.FirstOrDefault();
+            if (currentWindow?.Page != null)
+            {
+                await currentWindow.Page.Navigation.PushModalAsync(loginPage);
+            }
+            else
+            {
+                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            await DisplayAlert("Lỗi", ex.Message, "OK");
+        }
+    }
 
     // Category Cards Events
     private async void OnActivityTapped(object sender, EventArgs e)
@@ -31,7 +60,25 @@ public partial class MainPage : ContentPage
     // Menu Items Events
     private async void OnBodyMeasurementsTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Body Measurements selected!", "OK");
+        try
+        {
+            var bodyMeasurements = new BodyMeasurementsPage();
+
+            var currentWindow = Application.Current?.Windows.FirstOrDefault();
+            if (currentWindow?.Page != null)
+            {
+                await currentWindow.Page.Navigation.PushModalAsync(bodyMeasurements);
+            }
+            else
+            {
+                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            await DisplayAlert("Lỗi", ex.Message, "OK");
+        }
     }
 
     private async void OnHealthRecordsTapped(object sender, EventArgs e)

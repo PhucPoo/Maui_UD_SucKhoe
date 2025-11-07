@@ -72,6 +72,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Controls\BodyMeasurementsPage.xaml.cs">
+	    <DependentUpon>BodyMeasurementsPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Controls\BodyMeasurementsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\LeftSideModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
