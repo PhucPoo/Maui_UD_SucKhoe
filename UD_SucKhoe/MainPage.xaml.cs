@@ -83,7 +83,25 @@ public partial class MainPage : ContentPage
 
     private async void OnHealthRecordsTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Health Records selected!", "OK");
+        try
+        {
+            var healthRecords = new HealthRecordsPage();
+
+            var currentWindow = Application.Current?.Windows.FirstOrDefault();
+            if (currentWindow?.Page != null)
+            {
+                await currentWindow.Page.Navigation.PushAsync(healthRecords);
+            }
+            else
+            {
+                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            await DisplayAlert("Lỗi", ex.Message, "OK");
+        }
     }
 
     private async void OnHeartTapped(object sender, EventArgs e)

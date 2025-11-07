@@ -81,6 +81,9 @@
 	  <MauiXaml Update="Controls\BodyMeasurementsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\HealthRecordsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\LeftSideModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
