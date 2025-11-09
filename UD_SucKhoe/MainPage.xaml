@@ -35,16 +35,44 @@
                     </VerticalStackLayout>
                 </Border>
 
-              
+                <!-- Avatar Border (Right) - Hiển thị khi đã đăng nhập -->
+                <Border x:Name="AvatarBorder"
+                        Grid.Column="2"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        StrokeThickness="2"
+                        Stroke="#E0E0E0"
+                        Margin="8,0"
+                        IsVisible="False"
+                        BackgroundColor="White"
+                        VerticalOptions="Center">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="22"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="2,2"
+                                Radius="5"
+                                Opacity="0.3"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAvatarTapped"/>
+                    </Border.GestureRecognizers>
+                    <Image x:Name="AvatarImage"
+                           Aspect="AspectFill"
+                           Source="default_avatar.png"/>
+                </Border>
 
-                <!-- Login Button (Right) -->
-                <Border Grid.Column="2"
+                <!-- Login Button (Right) - Hiển thị khi chưa đăng nhập -->
+                <Border x:Name="LoginButton"
+                        Grid.Column="2"
                         Stroke="#007AFF"
                         StrokeThickness="2"
                         Padding="12,6"
-                        Margin="0,0,8,0"
+                        Margin="8,0"
                         BackgroundColor="Transparent"
                         VerticalOptions="Center"
+                        IsVisible="True"
                         SemanticProperties.Description="Đăng nhập">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="20"/>

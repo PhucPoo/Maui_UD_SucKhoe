@@ -1,137 +1,162 @@
-﻿namespace UD_SucKhoe;
+﻿using CommunityToolkit.Mvvm.Messaging;
+
+namespace UD_SucKhoe;
 
 public partial class MainPage : ContentPage
 {
     public MainPage()
     {
         InitializeComponent();
+
+        // Đăng ký nhận message khi đăng nhập thành công
+        WeakReferenceMessenger.Default.Register<LoginMessage>(this, (r, m) =>
+        {
+            UpdateUserUI();
+        });
     }
-    private async void OnMenuTapped(object sender, EventArgs e)
+
+    protected override void OnAppearing()
     {
-        // Hiển thị menu
-        await DisplayAlert("Menu", "Menu clicked", "OK");
+        base.OnAppearing();
+        // Cập nhật UI mỗi khi màn hình hiển thị
+        UpdateUserUI();
+    }
+
+    private void UpdateUserUI()
+    {
+        bool isLoggedIn = Preferences.Get("IsLoggedIn", false);
+
+        if (isLoggedIn)
+        {
+            // Hiển thị avatar, ẩn nút đăng nhập
+            AvatarBorder.IsVisible = true;
+            LoginButton.IsVisible = false;
+
+            // Lấy đường dẫn avatar
+            string avatarUrl = Preferences.Get("AvatarUrl", string.Empty);
+
+            if (!string.IsNullOrEmpty(avatarUrl))
+            {
+                AvatarImage.Source = avatarUrl;
+            }
+            else
+            {
+                // Hiển thị avatar mặc định
+                AvatarImage.Source = "default_avatar.png";
+            }
+        }
+        else
+        {
+            // Ẩn avatar, hiển thị nút đăng nhập
+            AvatarBorder.IsVisible = false;
+            LoginButton.IsVisible = true;
+        }
     }
 
     private async void OnLoginTapped(object sender, EventArgs e)
     {
-        // Thử cách navigation Modal thay vì Shell navigation
-        try
-        {
-            var loginPage = new LoginPage();
+        await Navigation.PushModalAsync(new LoginPage());
+    }
 
-            var currentWindow = Application.Current?.Windows.FirstOrDefault();
-            if (currentWindow?.Page != null)
-            {
-                await currentWindow.Page.Navigation.PushModalAsync(loginPage);
-            }
-            else
-            {
-                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
-            }
-        }
-        catch (System.Exception ex)
+    private async void OnAvatarTapped(object sender, EventArgs e)
+    {
+        string fullName = Preferences.Get("FullName", "Người dùng");
+
+        string action = await DisplayActionSheet(
+            fullName,
+            "Hủy",
+            null,
+            "Xem hồ sơ",
+            "Đăng xuất"
+        );
+
+        if (action == "Đăng xuất")
         {
-            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
-            await DisplayAlert("Lỗi", ex.Message, "OK");
+            // Xóa thông tin đăng nhập
+            Preferences.Clear();
+            UpdateUserUI();
+            await DisplayAlert("Thông báo", "Đã đăng xuất thành công!", "OK");
+        }
+        else if (action == "Xem hồ sơ")
+        {
+            await DisplayAlert("Thông báo", "Tính năng đang phát triển", "OK");
         }
     }
 
-    // Category Cards Events
+    private async void OnMenuTapped(object sender, EventArgs e)
+    {
+        await DisplayAlert("Menu", "Chức năng menu đang được phát triển", "OK");
+    }
+
     private async void OnActivityTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Activity tapped!", "OK");
+        await DisplayAlert("Thể dục", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnMindfulnessTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Mindfulness tapped!", "OK");
+        await DisplayAlert("Sức khỏe tinh thần", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnNutritionTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Nutrition tapped!", "OK");
+        await DisplayAlert("Dinh dưỡng", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnSleepTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Sleep tapped!", "OK");
+        await DisplayAlert("Giấc ngủ", "Chức năng đang được phát triển", "OK");
     }
 
-    // Menu Items Events
     private async void OnBodyMeasurementsTapped(object sender, EventArgs e)
     {
-        try
-        {
-            var bodyMeasurements = new BodyMeasurementsPage();
-
-            var currentWindow = Application.Current?.Windows.FirstOrDefault();
-            if (currentWindow?.Page != null)
-            {
-                await currentWindow.Page.Navigation.PushModalAsync(bodyMeasurements);
-            }
-            else
-            {
-                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
-            }
-        }
-        catch (System.Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
-            await DisplayAlert("Lỗi", ex.Message, "OK");
-        }
+        await DisplayAlert("Số đo cơ thể", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnHealthRecordsTapped(object sender, EventArgs e)
     {
-        try
-        {
-            var healthRecords = new HealthRecordsPage();
-
-            var currentWindow = Application.Current?.Windows.FirstOrDefault();
-            if (currentWindow?.Page != null)
-            {
-                await currentWindow.Page.Navigation.PushAsync(healthRecords);
-            }
-            else
-            {
-                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
-            }
-        }
-        catch (System.Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
-            await DisplayAlert("Lỗi", ex.Message, "OK");
-        }
+        await DisplayAlert("Hồ sơ sức khỏe", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnHeartTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Heart selected!", "OK");
+        await DisplayAlert("Trái tim", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnReproductiveHealthTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Health Data", "Reproductive Health selected!", "OK");
+        await DisplayAlert("Sức khỏe sinh sản", "Chức năng đang được phát triển", "OK");
     }
 
-    // Tab Bar Events
     private async void OnSummaryTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Tab Bar", "Summary tab tapped!", "OK");
+        await DisplayAlert("Tóm tắt", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnBrowseTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Tab Bar", "Browse tab tapped! (Current)", "OK");
+        // Đây là trang hiện tại
     }
 
     private async void OnSharingTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Tab Bar", "Sharing tab tapped!", "OK");
+        await DisplayAlert("Chia sẻ", "Chức năng đang được phát triển", "OK");
     }
 
     private async void OnMedicalIDTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Tab Bar", "Medical ID tab tapped!", "OK");
+        await DisplayAlert("Thông tin y tế", "Chức năng đang được phát triển", "OK");
     }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        // Hủy đăng ký khi page bị dispose
+        WeakReferenceMessenger.Default.Unregister<LoginMessage>(this);
+    }
+}
+
+// Define the message class
+public class LoginMessage
+{
 }
