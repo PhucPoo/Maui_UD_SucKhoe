@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UD_SucKhoe.ProfilePage"
+             Title="Ho so cua toi"
+             BackgroundColor="#F5F5F5">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Header với avatar -->
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="20"
+                    Margin="0,0,0,10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                    <!-- Avatar -->
+                    <Border StrokeThickness="3"
+                            Stroke="#4A90E2"
+                            WidthRequest="100"
+                            HeightRequest="100"
+                            HorizontalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="50"/>
+                        </Border.StrokeShape>
+                        <Image Source="user_avatar.png"
+                               Aspect="AspectFill"/>
+                    </Border>
+                    <!-- Tên người dùng -->
+                    <Label x:Name="lblFullName"
+                           Text="Ten nguoi dung"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="#333"/>
+                </VerticalStackLayout>
+            </Border>
+            <!-- Thông tin cá nhân -->
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Thong tin ca nhan"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#333"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Họ và tên -->
+                    <Grid ColumnDefinitions="*,40" RowDefinitions="Auto,Auto,Auto">
+                        <Label Text="Ho va ten" Grid.Row="0" Grid.Column="0"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblFullNameField" Grid.Row="1" Grid.Column="0"
+                               Text="Nguyen Van A" FontSize="16" TextColor="#333"
+                               IsVisible="True"/>
+                        <Entry x:Name="entryFullName" Grid.Row="1" Grid.Column="0"
+                               Text="Nguyen Van A" FontSize="16" TextColor="#333"
+                               IsVisible="False"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="&#x270E;"
+                               FontSize="22"
+                               TextColor="#4A90E2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditFullNameClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView Grid.Row="2" Grid.ColumnSpan="2"
+                                 HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5,0,0"/>
+                    </Grid>
+
+                    <!-- Email -->
+                    <Grid ColumnDefinitions="*,40" RowDefinitions="Auto,Auto,Auto">
+                        <Label Text="Email" Grid.Row="0" Grid.Column="0"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblEmailField" Grid.Row="1" Grid.Column="0"
+                               Text="email@example.com" FontSize="16" TextColor="#333"
+                               IsVisible="True"/>
+                        <Entry x:Name="entryEmail" Grid.Row="1" Grid.Column="0"
+                               Text="email@example.com" FontSize="16" TextColor="#333"
+                               Keyboard="Email" IsVisible="False"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="&#x270E;"
+                               FontSize="22"
+                               TextColor="#4A90E2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditEmailClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView Grid.Row="2" Grid.ColumnSpan="2"
+                                 HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5,0,0"/>
+                    </Grid>
+
+                    <!-- Số điện thoại -->
+                    <Grid ColumnDefinitions="*,40" RowDefinitions="Auto,Auto,Auto">
+                        <Label Text="So dien thoai" Grid.Row="0" Grid.Column="0"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblPhoneField" Grid.Row="1" Grid.Column="0"
+                               Text="0123456789" FontSize="16" TextColor="#333"
+                               IsVisible="True"/>
+                        <Entry x:Name="entryPhone" Grid.Row="1" Grid.Column="0"
+                               Text="0123456789" FontSize="16" TextColor="#333"
+                               Keyboard="Telephone" IsVisible="False"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="&#x270E;"
+                               FontSize="22"
+                               TextColor="#4A90E2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditPhoneClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView Grid.Row="2" Grid.ColumnSpan="2"
+                                 HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5,0,0"/>
+                    </Grid>
+
+                    <!-- Địa chỉ -->
+                    <Grid ColumnDefinitions="*,40" RowDefinitions="Auto,Auto,Auto">
+                        <Label Text="Dia chi" Grid.Row="0" Grid.Column="0"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblAddressField" Grid.Row="1" Grid.Column="0"
+                               Text="Chua cap nhat" FontSize="16" TextColor="#333"
+                               IsVisible="True"/>
+                        <Entry x:Name="entryAddress" Grid.Row="1" Grid.Column="0"
+                               Text="Chua cap nhat" FontSize="16" TextColor="#333"
+                               IsVisible="False"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="&#x270E;"
+                               FontSize="22"
+                               TextColor="#4A90E2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditAddressClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView Grid.Row="2" Grid.ColumnSpan="2"
+                                 HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5,0,0"/>
+                    </Grid>
+
+                    <!-- Ngày sinh -->
+                    <Grid ColumnDefinitions="*,40" RowDefinitions="Auto,Auto,Auto">
+                        <Label Text="Ngay sinh" Grid.Row="0" Grid.Column="0"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblBirthdayField" Grid.Row="1" Grid.Column="0"
+                               Text="01/01/2000" FontSize="16" TextColor="#333"
+                               IsVisible="True"/>
+                        <DatePicker x:Name="dateBirthday" Grid.Row="1" Grid.Column="0"
+                                    FontSize="16" TextColor="#333"
+                                    Format="dd/MM/yyyy" IsVisible="False"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="&#x270E;"
+                               FontSize="22"
+                               TextColor="#4A90E2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditBirthdayClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView Grid.Row="2" Grid.ColumnSpan="2"
+                                 HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5,0,0"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Thông tin tài khoản -->
+            <Border StrokeThickness="0"
+                    BackgroundColor="White"
+                    Padding="20">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Thong tin tai khoan"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#333"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Mật khẩu -->
+                    <Grid ColumnDefinitions="*,40" RowDefinitions="Auto,Auto,Auto">
+                        <Label Text="Mat khau" Grid.Row="0" Grid.Column="0"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblPasswordField" Grid.Row="1" Grid.Column="0"
+                               Text="********" FontSize="16" TextColor="#333"
+                               IsVisible="True"/>
+                        <Entry x:Name="entryPassword" Grid.Row="1" Grid.Column="0"
+                               Text="" FontSize="16" TextColor="#333"
+                               IsPassword="True" IsVisible="False"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="&#x270E;"
+                               FontSize="22"
+                               TextColor="#4A90E2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEditPasswordClicked"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <BoxView Grid.Row="2" Grid.ColumnSpan="2"
+                                 HeightRequest="1" BackgroundColor="#E0E0E0" Margin="0,5,0,0"/>
+                    </Grid>
+
+                    <!-- Ngày tạo tài khoản (không cho sửa) -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Ngay tao tai khoan"
+                               FontSize="12" TextColor="#666"/>
+                        <Label x:Name="lblCreatedDate"
+                               Text="01/01/2024" FontSize="16" TextColor="#333"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Nút cập nhật -->
+            <Button x:Name="btnUpdate"
+                    Text="Cap nhat thong tin"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Margin="0,10,0,0"
+                    Clicked="OnUpdateButtonClicked"
+                    IsVisible="False"/>
+
+            <!-- Nút quay lại -->
+            <Button Text="Quay lai"
+                    BackgroundColor="#4A90E2"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Margin="0,0,0,20"
+                    Clicked="OnBackButtonClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -79,7 +79,7 @@ public partial class MainPage : ContentPage
         }
         else if (action == "Xem hồ sơ")
         {
-            await DisplayAlert("Thông báo", "Tính năng đang phát triển", "OK");
+            await Navigation.PushAsync(new ProfilePage());
         }
     }
 
@@ -110,12 +110,48 @@ public partial class MainPage : ContentPage
 
     private async void OnBodyMeasurementsTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Số đo cơ thể", "Chức năng đang được phát triển", "OK");
+        try
+        {
+            var bodyMeasurements = new BodyMeasurementsPage();
+
+            var currentWindow = Application.Current?.Windows.FirstOrDefault();
+            if (currentWindow?.Page != null)
+            {
+                await currentWindow.Page.Navigation.PushModalAsync(bodyMeasurements);
+            }
+            else
+            {
+                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            await DisplayAlert("Lỗi", ex.Message, "OK");
+        }
     }
 
     private async void OnHealthRecordsTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Hồ sơ sức khỏe", "Chức năng đang được phát triển", "OK");
+        try
+        {
+            var healthRecords = new HealthRecordsPage();
+
+            var currentWindow = Application.Current?.Windows.FirstOrDefault();
+            if (currentWindow?.Page != null)
+            {
+                await currentWindow.Page.Navigation.PushAsync(healthRecords);
+            }
+            else
+            {
+                await DisplayAlert("Lỗi", "Unable to navigate: Current window or page is null.", "OK");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            await DisplayAlert("Lỗi", ex.Message, "OK");
+        }
     }
 
     private async void OnHeartTapped(object sender, EventArgs e)
@@ -136,6 +172,7 @@ public partial class MainPage : ContentPage
     private async void OnBrowseTapped(object sender, EventArgs e)
     {
         // Đây là trang hiện tại
+        await DisplayAlert("", "", "OK");
     }
 
     private async void OnSharingTapped(object sender, EventArgs e)
