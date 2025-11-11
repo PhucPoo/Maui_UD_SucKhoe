@@ -1,4 +1,6 @@
-﻿namespace UD_SucKhoe;
+﻿using UD_SucKhoe.Services;
+
+namespace UD_SucKhoe;
 
 public partial class BodyMeasurementsPage : ContentPage
 {
@@ -109,15 +111,21 @@ public partial class BodyMeasurementsPage : ContentPage
             return;
         }
 
-        // Lưu thông tin (có thể lưu vào database hoặc preferences)
-        // Preferences.Set("Height", height);
-        // Preferences.Set("Weight", weight);
-        // Preferences.Set("LastUpdate", DateTime.Now.ToString());
+        try
+        {
+            var db = new DatabaseService();
 
-        await DisplayAlert("Thành Công",
-            $"Đã lưu thông tin:\nChiều cao: {height} cm\nCân nặng: {weight} kg",
-            "OK");
+            // 👇 Thay ID người dùng thực tế nếu có
+            await db.InsertProgressAsync(userId: 1, height: height, weight: weight);
+
+            await DisplayAlert("Thành Công", "Đã lưu dữ liệu vào cơ sở dữ liệu!", "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Lỗi", $"Không thể lưu dữ liệu: {ex.Message}", "OK");
+        }
     }
+
 
     private async void OnCloseClicked(object sender, EventArgs e)
     {

@@ -4,58 +4,58 @@
              x:Class="UD_SucKhoe.HealthRecordsPage"
              Title="Thống kê sức khỏe">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+	<ScrollView>
+		<VerticalStackLayout Padding="20" Spacing="15">
 
-            <!-- Header -->
-            <Label Text="Thống kê tình trạng sức khỏe" 
-                   FontSize="24" 
+			<!-- Header -->
+			<Label Text="Thống kê tình trạng sức khỏe"
+                   FontSize="24"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
 
-            <!-- Thông tin cơ bản -->
-            <Border BackgroundColor="LightBlue" 
-                    StrokeThickness="2"
-                    Stroke="#0288D1"
-                    Padding="15"
-                    StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Chỉ số cơ bản" FontSize="18" FontAttributes="Bold"/>
-                    <Label Text="Nhịp tim: 72 bpm"/>
-                    <Label Text="Huyết áp: 120/80 mmHg"/>
-                    <Label Text="Cân nặng: 65 kg"/>
-                    <Label Text="Chiều cao: 170 cm"/>
-                </VerticalStackLayout>
-            </Border>
+			<!-- Thông tin cơ bản -->
+			<Border BackgroundColor="LightBlue"
+					StrokeThickness="2"
+					Stroke="#0288D1"
+					Padding="15"
+					StrokeShape="RoundRectangle 10">
+				<VerticalStackLayout Spacing="10">
+					<Label Text="Chỉ số cơ bản" FontSize="18" FontAttributes="Bold"/>
+					<Label x:Name="HeartRateLabel" Text="Nhịp tim: -- bpm"/>
+					<Label x:Name="BloodPressureLabel" Text="Huyết áp: --/-- mmHg"/>
+					<Label x:Name="WeightLabel" Text="Cân nặng: -- kg"/>
+					<Label x:Name="HeightLabel" Text="Chiều cao: -- cm"/>
+				</VerticalStackLayout>
+			</Border>
 
-            <!-- Lịch sử khám -->
-            <Border BackgroundColor="LightGreen" 
+			<!-- Lịch sử khám -->
+			<Border BackgroundColor="LightGreen"
                     StrokeThickness="2"
                     Stroke="#388E3C"
                     Padding="15"
                     StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Lịch sử khám gần đây" FontSize="18" FontAttributes="Bold"/>
-                    <Label Text="• 15/10/2024 - Khám tổng quát"/>
-                    <Label Text="• 01/09/2024 - Khám răng"/>
-                    <Label Text="• 20/07/2024 - Khám mắt"/>
-                </VerticalStackLayout>
-            </Border>
+				<VerticalStackLayout Spacing="10">
+					<Label Text="Lịch sử khám gần đây" FontSize="18" FontAttributes="Bold"/>
+					<Label Text="• 15/10/2024 - Khám tổng quát"/>
+					<Label Text="• 01/09/2024 - Khám răng"/>
+					<Label Text="• 20/07/2024 - Khám mắt"/>
+				</VerticalStackLayout>
+			</Border>
 
-            <!-- Đơn thuốc -->
-            <Border BackgroundColor="LightYellow" 
+			<!-- Đơn thuốc -->
+			<Border BackgroundColor="LightYellow"
                     StrokeThickness="2"
                     Stroke="#FBC02D"
                     Padding="15"
                     StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Đơn thuốc hiện tại" FontSize="18" FontAttributes="Bold"/>
-                    <Label Text="• Vitamin C - 1 viên/ngày"/>
-                    <Label Text="• Thuốc đau đầu - Khi cần"/>
-                </VerticalStackLayout>
-            </Border>
-            <!-- Nút quay lại -->
-            <Button Text="Quay lại" 
+				<VerticalStackLayout Spacing="10">
+					<Label Text="Đơn thuốc hiện tại" FontSize="18" FontAttributes="Bold"/>
+					<Label Text="• Vitamin C - 1 viên/ngày"/>
+					<Label Text="• Thuốc đau đầu - Khi cần"/>
+				</VerticalStackLayout>
+			</Border>
+			<!-- Nút quay lại -->
+			<Button Text="Quay lại"
                     BackgroundColor="#2196F3"
                     TextColor="White"
                     FontSize="16"
@@ -65,7 +65,7 @@
                     Margin="0,20,0,20"
                     Clicked="OnBackButtonClicked"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
+		</VerticalStackLayout>
+	</ScrollView>
 
 </ContentPage>

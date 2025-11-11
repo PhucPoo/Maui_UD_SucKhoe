@@ -1,4 +1,7 @@
-﻿namespace UD_SucKhoe
+﻿using Microsoft.Data.SqlClient;
+using UD_SucKhoe.Services;
+
+namespace UD_SucKhoe
 {
     public partial class ProfilePage : ContentPage
     {
@@ -186,22 +189,51 @@
 
         private async Task UpdateToDatabase()
         {
-            // TODO: Thêm code cập nhật database ở đây
-            // Ví dụ với SQLite:
-            /*
-            var userId = Preferences.Get("UserId", 0);
-            var conn = new SQLiteConnection(App.DatabasePath);
-            var user = conn.Get<User>(userId);
-            user.FullName = entryFullName.Text;
-            user.Email = entryEmail.Text;
-            user.Phone = entryPhone.Text;
-            user.Address = entryAddress.Text;
-            user.Birthday = dateBirthday.Date.ToString("dd/MM/yyyy");
-            if (!string.IsNullOrWhiteSpace(entryPassword.Text))
-                user.Password = entryPassword.Text;
-            conn.Update(user);
-            */
-            await Task.CompletedTask;
+            try
+            {
+                // Lấy UserID đang đăng nhập (đảm bảo bạn đã lưu khi login)
+                int userId = Preferences.Get("UserId", 0);
+
+                if (userId == 0)
+                {
+                    await DisplayAlert("Lỗi", "Không tìm thấy thông tin người dùng!", "OK");
+                    return;
+                }
+
+                // Lấy connection từ DatabaseService
+                var dbService = new DatabaseService();
+                string connectionString = dbService.GetConnectionString();
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    string query = @"
+                UPDATE Users
+                    SET FullName = @FullName,
+                    Email = @Email,
+                    PasswordHash = @PasswordHash,
+                    DateOfBirth = @DateOfBirth
+                    WHERE UserID = @UserID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@FullName", entryFullName.Text);
+                        cmd.Parameters.AddWithValue("@Email", entryEmail.Text);
+                        cmd.Parameters.AddWithValue("@PasswordHash", entryPassword.Text);
+                        cmd.Parameters.AddWithValue("@DateOfBirth", dateBirthday.Date);
+                        cmd.Parameters.AddWithValue("@UserID", userId);
+
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
+
+                await DisplayAlert("Thành công", "Đã cập nhật thông tin người dùng vào cơ sở dữ liệu!", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Lỗi", $"Không thể cập nhật database: {ex.Message}", "OK");
+            }
         }
 
         private async void OnBackButtonClicked(object sender, EventArgs e)
