@@ -4,12 +4,12 @@ namespace UD_SucKhoe;
 
 public partial class LoginPage : ContentPage
 {
-    private readonly SqlServerDatabaseService _databaseService;
+    private readonly DatabaseService _databaseService;
 
     public LoginPage()
     {
         InitializeComponent();
-        _databaseService = new SqlServerDatabaseService();
+        _databaseService = new DatabaseService();
     }
 
     // Đăng nhập
@@ -24,30 +24,54 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        var user = await _databaseService.LoginUser(emailOrUsername, password);
-
-        if (user != null)
+        try
         {
-            await DisplayAlert("Thành công", $"Chào mừng {user.FullName}!", "OK");
+            // Hiển thị loading (optional)
+            UsernameEntry.IsEnabled = false;
+            PasswordEntry.IsEnabled = false;
 
-            // Lưu thông tin đăng nhập
-            Preferences.Set("IsLoggedIn", true);
-            Preferences.Set("UserId", user.UserID);
-            Preferences.Set("Email", user.Email);
-            Preferences.Set("FullName", user.FullName);
+            Console.WriteLine($"[Login] Attempting login for: {emailOrUsername}");
 
-            await Navigation.PopModalAsync();
+            // Sử dụng ValidateUser - tự động hash password và so sánh
+            var user = await _databaseService.ValidateUser(emailOrUsername, password);
+
+            if (user != null)
+            {
+                Console.WriteLine($"[Login] ✓ Login successful for user: {user.FullName}");
+
+                await DisplayAlert("Thành công", $"Chào mừng {user.FullName}!", "OK");
+
+                // Lưu thông tin đăng nhập
+                Preferences.Set("IsLoggedIn", true);
+                Preferences.Set("UserId", user.UserID);
+                Preferences.Set("Email", user.Email);
+                Preferences.Set("FullName", user.FullName);
+
+                await Navigation.PopModalAsync();
+            }
+            else
+            {
+                Console.WriteLine($"[Login] ✗ Login failed for: {emailOrUsername}");
+                await DisplayAlert("Lỗi", "Email hoặc mật khẩu không đúng!", "OK");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await DisplayAlert("Lỗi", "Email hoặc mật khẩu không đúng!", "OK");
+            Console.WriteLine($"[Login] ✗ Error: {ex.Message}");
+            await DisplayAlert("Lỗi", $"Đã xảy ra lỗi: {ex.Message}", "OK");
+        }
+        finally
+        {
+            // Bật lại các control
+            UsernameEntry.IsEnabled = true;
+            PasswordEntry.IsEnabled = true;
         }
     }
 
     // Nhấn "Quên mật khẩu"
     private async void OnForgotPasswordTapped(object sender, TappedEventArgs e)
     {
-        await DisplayAlert("Thông báo", "Tính năng quên mật khẩu sẽ sớm được cập nhật.", "OK");
+        await Navigation.PushModalAsync(new ForgotPasswordPage());
     }
 
     // Nhấn "Đăng ký"
