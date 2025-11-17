@@ -4,6 +4,7 @@ namespace UD_SucKhoe;
 
 public partial class BodyMeasurementsPage : ContentPage
 {
+    public event Action<double> BMICalculated;
     public BodyMeasurementsPage()
     {
         InitializeComponent();
@@ -43,6 +44,8 @@ public partial class BodyMeasurementsPage : ContentPage
         // Tính BMI (chiều cao cần chuyển từ cm sang m)
         double heightInMeters = height / 100;
         double bmi = weight / (heightInMeters * heightInMeters);
+
+        BMICalculated?.Invoke(bmi);
 
         // Hiển thị kết quả
         BMIValueLabel.Text = bmi.ToString("F2");
@@ -115,7 +118,7 @@ public partial class BodyMeasurementsPage : ContentPage
         {
             var db = new DatabaseService();
 
-            // 👇 Thay ID người dùng thực tế nếu có
+
             await db.InsertProgressAsync(userId: 1, height: height, weight: weight);
 
             await DisplayAlert("Thành Công", "Đã lưu dữ liệu vào cơ sở dữ liệu!", "OK");

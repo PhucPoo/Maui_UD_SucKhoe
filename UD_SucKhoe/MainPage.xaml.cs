@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 
+
 namespace UD_SucKhoe;
 
 public partial class MainPage : ContentPage
 {
+    private double _latestBMI;
     public MainPage()
     {
         InitializeComponent();
@@ -100,7 +102,13 @@ public partial class MainPage : ContentPage
 
     private async void OnNutritionTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Dinh dưỡng", "Chức năng đang được phát triển", "OK");
+        if (_latestBMI == 0)
+        {
+            await DisplayAlert("Thông báo", "Vui lòng tính BMI trước!", "OK");
+            return;
+        }
+
+        await Navigation.PushAsync(new NutritionPage(_latestBMI));
     }
 
     private async void OnSleepTapped(object sender, EventArgs e)
@@ -113,6 +121,15 @@ public partial class MainPage : ContentPage
         try
         {
             var bodyMeasurements = new BodyMeasurementsPage();
+
+            bodyMeasurements.BMICalculated += (bmi) =>
+            {
+                _latestBMI = bmi;
+                Dispatcher.Dispatch(async () =>
+                {
+                    await DisplayAlert("Đã tính BMI", $"BMI của bạn: {bmi:F2}", "OK");
+                });
+            };
 
             var currentWindow = Application.Current?.Windows.FirstOrDefault();
             if (currentWindow?.Page != null)
