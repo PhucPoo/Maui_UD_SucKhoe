@@ -92,7 +92,7 @@ public partial class MainPage : ContentPage
 
     private async void OnActivityTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Thể dục", "Chức năng đang được phát triển", "OK");
+        await Navigation.PushAsync(new ActivityPage());
     }
 
     private async void OnMindfulnessTapped(object sender, EventArgs e)

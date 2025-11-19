@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UD_SucKhoe.ActivityPage"
+             BackgroundColor="#F5F5F5"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                Padding="16,12">
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.1"/>
+            </Border.Shadow>
+            <Grid ColumnDefinitions="Auto,*">
+                <!-- Back Button -->
+                <Border Grid.Column="0"
+                        Stroke="#007AFF"
+                        StrokeThickness="2"
+                        Padding="0"
+                        BackgroundColor="#F0F7FF"
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Margin="4,0,0,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="18"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#007AFF" 
+                                Offset="0,2" 
+                                Radius="4" 
+                                Opacity="0.2"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped"/>
+                    </Border.GestureRecognizers>
+                    <Label Text="←"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#007AFF"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                </Border>
+
+                <!-- Title -->
+                <Label Grid.Column="1"
+                       Text="Chọn kế hoạch tập luyện của bạn"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="8,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1" Padding="16,16,16,20">
+            <VerticalStackLayout Spacing="16">
+
+                <!-- Chuyên gia Card -->
+                <Border StrokeThickness="0"
+                        HeightRequest="120">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.15"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnExpertPlanTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="gym_poster.jpg"
+                               Aspect="AspectFill"/>
+                        <!-- Overlay -->
+                        <BoxView Color="Black" Opacity="0.3"/>
+                        <!-- Content -->
+                        <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0"
+                                   Text="🏋️ Tại gym"
+                                   FontSize="16"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                                   Text="⭐⭐⭐⭐⭐ Chuyên gia"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Text="33 ngày tập luyện (3 buổi/tuần)"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   Opacity="0.9"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- GIẢM CÂN - Pro Card -->
+                <Border StrokeThickness="0"
+                        HeightRequest="120">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.15"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnWeightLossTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="giamcan1_poster.png"
+                               Aspect="AspectFill"/>
+                        <!-- Overlay -->
+                        <BoxView Color="Black" Opacity="0.35"/>
+                        <!-- Content -->
+                        <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0"
+                                   Text="GIẢM CÂN"
+                                   FontSize="20"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                                   Text="🏋️ Tại gym  ⭐⭐⭐⭐⭐ Pro"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Text="33 ngày tập luyện (3 buổi/tuần)"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   Opacity="0.9"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- GIẢM CÂN - Tại nhà Card -->
+                <Border StrokeThickness="0"
+                        HeightRequest="120">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.15"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnWeightLossHomeTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="giamcan2_poster.png"
+                               Aspect="AspectFill"/>
+                        <!-- Overlay -->
+                        <BoxView Color="Black" Opacity="0.35"/>
+                        <!-- Content -->
+                        <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0"
+                                   Text="GIẢM CÂN"
+                                   FontSize="20"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                                   Text="🏠 Tại nhà  ⭐⭐⭐⭐⭐ Dành cho người đã từng tập"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Text="22 ngày tập luyện (3 buổi/tuần)"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   Opacity="0.9"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- GIẢM CÂN - Người bắt đầu Card -->
+                <Border StrokeThickness="0"
+                        HeightRequest="120">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.15"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnWeightLossBeginnerTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="giucan3_poster.png"
+                               Aspect="AspectFill"/>
+                        <!-- Overlay -->
+                        <BoxView Color="Black" Opacity="0.35"/>
+                        <!-- Content -->
+                        <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0"
+                                   Text="GIẢM CÂN"
+                                   FontSize="20"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                                   Text="🏠 Tại nhà  ⭐⭐⭐⭐⭐ Người bắt đầu"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Text="22 ngày tập luyện (3 buổi/tuần)"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   Opacity="0.9"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- TĂNG CÂN Card -->
+                <Border StrokeThickness="0"
+                        HeightRequest="120">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.15"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnWeightGainTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="tangcan_poster.jpg"
+                               Aspect="AspectFill"/>
+                        <!-- Overlay -->
+                        <BoxView Color="Black" Opacity="0.35"/>
+                        <!-- Content -->
+                        <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0"
+                                   Text="TĂNG CÂN"
+                                   FontSize="20"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                                   Text="🏋️ Tại gym  ⭐⭐⭐⭐ Trung bình"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Text="44 ngày tập luyện (4 buổi/tuần)"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   Opacity="0.9"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- GIỮ CÂN Card -->
+                <Border StrokeThickness="0"
+                        HeightRequest="120">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.15"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMaintainWeightTapped"/>
+                    </Border.GestureRecognizers>
+                    <Grid>
+                        <!-- Background Image -->
+                        <Image Source="giucan_poster.png"
+                               Aspect="AspectFill"/>
+                        <!-- Overlay -->
+                        <BoxView Color="Black" Opacity="0.35"/>
+                        <!-- Content -->
+                        <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+                            <Label Grid.Row="0"
+                                   Text="GIỮ CÂN"
+                                   FontSize="20"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+                            <Label Grid.Row="1"
+                                   Text="🏠 Tại nhà  ⭐⭐⭐ Duy trì"
+                                   FontSize="14"
+                                   TextColor="White"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Text="28 ngày tập luyện (4 buổi/tuần)"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   Opacity="0.9"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>
