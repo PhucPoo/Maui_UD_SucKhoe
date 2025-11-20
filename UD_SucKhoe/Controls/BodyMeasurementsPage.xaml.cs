@@ -116,10 +116,19 @@ public partial class BodyMeasurementsPage : ContentPage
 
         try
         {
+            // 👉 Lấy UserId từ Preferences (được lưu khi đăng nhập)
+            int userId = Preferences.Get("UserId", 0);
+
+            if (userId == 0)
+            {
+                await DisplayAlert("Lỗi", "Không xác định được người dùng. Vui lòng đăng nhập lại!", "OK");
+                return;
+            }
+
             var db = new DatabaseService();
 
-
-            await db.InsertProgressAsync(userId: 1, height: height, weight: weight);
+            // 👉 Lưu đúng dữ liệu theo user đã đăng nhập
+            await db.InsertProgressAsync(userId, height, weight);
 
             await DisplayAlert("Thành Công", "Đã lưu dữ liệu vào cơ sở dữ liệu!", "OK");
         }
@@ -128,6 +137,7 @@ public partial class BodyMeasurementsPage : ContentPage
             await DisplayAlert("Lỗi", $"Không thể lưu dữ liệu: {ex.Message}", "OK");
         }
     }
+
 
 
     private async void OnCloseClicked(object sender, EventArgs e)
