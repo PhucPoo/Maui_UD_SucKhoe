@@ -295,6 +295,9 @@ namespace UD_SucKhoe.Services
             return null;
         }
 
+
+
+
         // Method test connection
         public async Task<bool> TestConnection()
         {
@@ -310,6 +313,313 @@ namespace UD_SucKhoe.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"✗ Connection failed: {ex.Message}");
+                return false;
+            }
+        }
+        // Thêm các phương thức này vào class DatabaseService
+
+        // 1. Lưu thực đơn cho 1 ngày
+        public async Task<bool> SaveMealPlanAsync(int userId, DateTime date, string mealType, string foodItems)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    // Kiểm tra xem đã có meal plan cho ngày và loại bữa ăn này chưa
+                    string checkQuery = @"SELECT COUNT(1) FROM MealPlans 
+                                 WHERE UserID = @UserID AND Date = @Date AND MealType = @MealType";
+
+                    using (var checkCmd = new SqlCommand(checkQuery, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@UserID", userId);
+                        checkCmd.Parameters.AddWithValue("@Date", date.Date);
+                        checkCmd.Parameters.AddWithValue("@MealType", mealType);
+
+                        int exists = (int)await checkCmd.ExecuteScalarAsync();
+
+                        if (exists > 0)
+                        {
+                            // Cập nhật nếu đã tồn tại
+                            string updateQuery = @"UPDATE MealPlans 
+                                          SET FoodID = @FoodID, Quantity = @Quantity
+                                          WHERE UserID = @UserID AND Date = @Date AND MealType = @MealType";
+
+                            using (var updateCmd = new SqlCommand(updateQuery, connection))
+                            {
+                                updateCmd.Parameters.AddWithValue("@UserID", userId);
+                                updateCmd.Parameters.AddWithValue("@Date", date.Date);
+                                updateCmd.Parameters.AddWithValue("@MealType", mealType);
+                                updateCmd.Parameters.AddWithValue("@FoodID", DBNull.Value); // Có thể link với bảng Foods nếu cần
+                                updateCmd.Parameters.AddWithValue("@Quantity", foodItems);
+
+                                await updateCmd.ExecuteNonQueryAsync();
+                            }
+                        }
+                        else
+                        {
+                            // Thêm mới nếu chưa tồn tại
+                            string insertQuery = @"INSERT INTO MealPlans (UserID, Date, MealType, FoodID, Quantity)
+                                          VALUES (@UserID, @Date, @MealType, @FoodID, @Quantity)";
+
+                            using (var insertCmd = new SqlCommand(insertQuery, connection))
+                            {
+                                insertCmd.Parameters.AddWithValue("@UserID", userId);
+                                insertCmd.Parameters.AddWithValue("@Date", date.Date);
+                                insertCmd.Parameters.AddWithValue("@MealType", mealType);
+                                insertCmd.Parameters.AddWithValue("@FoodID", DBNull.Value);
+                                insertCmd.Parameters.AddWithValue("@Quantity", foodItems);
+
+                                await insertCmd.ExecuteNonQueryAsync();
+                            }
+                        }
+                    }
+
+                    Console.WriteLine($"✓ Saved meal plan: {mealType} for {date.ToShortDateString()}");
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving meal plan: {ex.Message}");
+                return false;
+            }
+        }
+
+        // 2. Lưu toàn bộ thực đơn trong tuần
+        public async Task<bool> SaveWeeklyMealPlanAsync(int userId, Dictionary<string, MealPlan> weeklyPlan)
+        {
+            try
+            {
+                DateTime today = DateTime.Today;
+
+                // Tìm ngày thứ 2 của tuần hiện tại
+                int daysUntilMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 7) % 7;
+                DateTime monday = today.AddDays(-daysUntilMonday);
+
+                var dayMapping = new Dictionary<string, int>
+        {
+            {"Thứ 2", 0}, {"Thứ 3", 1}, {"Thứ 4", 2}, {"Thứ 5", 3},
+            {"Thứ 6", 4}, {"Thứ 7", 5}, {"Chủ nhật", 6}
+        };
+
+                foreach (var day in weeklyPlan)
+                {
+                    DateTime mealDate = monday.AddDays(dayMapping[day.Key]);
+                    var meal = day.Value;
+
+                    // Lưu Breakfast
+                    if (meal.Breakfast.Any())
+                    {
+                        string breakfastItems = string.Join(", ", meal.Breakfast);
+                        await SaveMealPlanAsync(userId, mealDate, "Breakfast", breakfastItems);
+                    }
+
+                    // Lưu Lunch
+                    if (meal.Lunch.Any())
+                    {
+                        string lunchItems = string.Join(", ", meal.Lunch);
+                        await SaveMealPlanAsync(userId, mealDate, "Lunch", lunchItems);
+                    }
+
+                    // Lưu Snack
+                    if (meal.Snack.Any())
+                    {
+                        string snackItems = string.Join(", ", meal.Snack);
+                        await SaveMealPlanAsync(userId, mealDate, "Snack", snackItems);
+                    }
+
+                    // Lưu Dinner
+                    if (meal.Dinner.Any())
+                    {
+                        string dinnerItems = string.Join(", ", meal.Dinner);
+                        await SaveMealPlanAsync(userId, mealDate, "Dinner", dinnerItems);
+                    }
+                }
+
+                Console.WriteLine($"✓ Saved weekly meal plan for user {userId}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving weekly meal plan: {ex.Message}");
+                return false;
+            }
+        }
+
+        // 3. Lưu gợi ý dinh dưỡng vào bảng Recommendations
+        public async Task<bool> SaveNutritionRecommendationAsync(int userId, double bmi, string recommendedFoods, string reason)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    string query = @"INSERT INTO Recommendations 
+                            (UserID, Date, RecommendedCalories, RecommendedFoods, RecommendedExercises, Reason)
+                            VALUES (@UserID, @Date, @RecommendedCalories, @RecommendedFoods, @RecommendedExercises, @Reason)";
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.AddWithValue("@Date", DateTime.Now);
+
+                        // Tính calories khuyến nghị dựa trên BMI
+                        int recommendedCalories = bmi < 18.5 ? 2500 : (bmi <= 24.9 ? 2000 : 1500);
+                        command.Parameters.AddWithValue("@RecommendedCalories", recommendedCalories);
+                        command.Parameters.AddWithValue("@RecommendedFoods", recommendedFoods);
+                        command.Parameters.AddWithValue("@RecommendedExercises", DBNull.Value);
+                        command.Parameters.AddWithValue("@Reason", reason);
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+
+                    Console.WriteLine($"✓ Saved nutrition recommendation for user {userId}");
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving recommendation: {ex.Message}");
+                return false;
+            }
+        }
+
+        // 4. Lấy thực đơn theo ngày
+        public async Task<Dictionary<string, List<string>>?> GetMealPlanByDateAsync(int userId, DateTime date)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    string query = @"SELECT MealType, Quantity 
+                            FROM MealPlans 
+                            WHERE UserID = @UserID AND Date = @Date
+                            ORDER BY 
+                                CASE MealType
+                                    WHEN 'Breakfast' THEN 1
+                                    WHEN 'Lunch' THEN 2
+                                    WHEN 'Snack' THEN 3
+                                    WHEN 'Dinner' THEN 4
+                                END";
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.AddWithValue("@Date", date.Date);
+
+                        var mealPlan = new Dictionary<string, List<string>>();
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                string mealType = reader.GetString(0);
+                                string quantity = reader.GetString(1);
+
+                                mealPlan[mealType] = quantity.Split(", ").ToList();
+                            }
+                        }
+
+                        return mealPlan.Any() ? mealPlan : null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting meal plan: {ex.Message}");
+                return null;
+            }
+        }
+
+        // 5. Lấy thực đơn cả tuần
+        public async Task<Dictionary<DateTime, Dictionary<string, List<string>>>?> GetWeeklyMealPlanAsync(int userId, DateTime startDate)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    DateTime endDate = startDate.AddDays(7);
+
+                    string query = @"SELECT Date, MealType, Quantity 
+                            FROM MealPlans 
+                            WHERE UserID = @UserID AND Date >= @StartDate AND Date < @EndDate
+                            ORDER BY Date, 
+                                CASE MealType
+                                    WHEN 'Breakfast' THEN 1
+                                    WHEN 'Lunch' THEN 2
+                                    WHEN 'Snack' THEN 3
+                                    WHEN 'Dinner' THEN 4
+                                END";
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.AddWithValue("@StartDate", startDate.Date);
+                        command.Parameters.AddWithValue("@EndDate", endDate.Date);
+
+                        var weeklyPlan = new Dictionary<DateTime, Dictionary<string, List<string>>>();
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                DateTime date = reader.GetDateTime(0);
+                                string mealType = reader.GetString(1);
+                                string quantity = reader.GetString(2);
+
+                                if (!weeklyPlan.ContainsKey(date))
+                                {
+                                    weeklyPlan[date] = new Dictionary<string, List<string>>();
+                                }
+
+                                weeklyPlan[date][mealType] = quantity.Split(", ").ToList();
+                            }
+                        }
+
+                        return weeklyPlan.Any() ? weeklyPlan : null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting weekly meal plan: {ex.Message}");
+                return null;
+            }
+        }
+
+        // 6. Xóa thực đơn theo ngày
+        public async Task<bool> DeleteMealPlanByDateAsync(int userId, DateTime date)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    await connection.OpenAsync();
+
+                    string query = "DELETE FROM MealPlans WHERE UserID = @UserID AND Date = @Date";
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.AddWithValue("@Date", date.Date);
+
+                        int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                        Console.WriteLine($"✓ Deleted {rowsAffected} meal plan(s) for {date.ToShortDateString()}");
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting meal plan: {ex.Message}");
                 return false;
             }
         }

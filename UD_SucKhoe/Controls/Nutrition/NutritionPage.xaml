@@ -3,23 +3,157 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UD_SucKhoe.NutritionPage"
              Title="Gợi ý dinh dưỡng">
+	<Grid RowDefinitions="*,Auto">
+		<!-- Nội dung chính -->
+		<ScrollView Grid.Row="0">
+			<VerticalStackLayout Padding="20"
+                                 Spacing="18">
+				<!-- TIÊU ĐỀ -->
+				<Label Text="Gợi ý món ăn theo BMI"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#1976D2" />
+				<!-- Layout động chứa phần ăn sáng/trưa/chiều/tối -->
+				<VerticalStackLayout x:Name="ContentLayout"
+                                     Spacing="14" />
+			</VerticalStackLayout>
+		</ScrollView>
 
-	<ScrollView>
-		<VerticalStackLayout Padding="20"
-                             Spacing="18">
+		<!-- Footer với các ngày trong tuần -->
+		<Border Grid.Row="1"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                Shadow="{Shadow Brush=#000000, Opacity=0.1, Radius=10, Offset='0,-2'}">
+			<HorizontalStackLayout Padding="10,12"
+                                   Spacing="8"
+                                   HorizontalOptions="Center">
+				<!-- Thứ 2 -->
+				<Border BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="T2"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#666"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
 
-			<!-- TIÊU ĐỀ -->
-			<Label Text="Gợi ý món ăn theo BMI"
-                   FontSize="22"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   TextColor="#1976D2" />
+				<!-- Thứ 3 -->
+				<Border BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="T3"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#666"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
 
-			<!-- Layout động chứa phần ăn sáng/trưa/chiều/tối -->
-			<VerticalStackLayout x:Name="ContentLayout"
-                                 Spacing="14" />
+				<!-- Thứ 4 -->
+				<Border BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="T4"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#666"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
 
-		</VerticalStackLayout>
-	</ScrollView>
+				<!-- Thứ 5 -->
+				<Border BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="T5"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#666"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
 
+				<!-- Thứ 6 -->
+				<Border BackgroundColor="#E3F2FD"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="T6"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#666"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- Thứ 7 -->
+				<Border BackgroundColor="#FFEBEE"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="T7"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#D32F2F"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
+
+				<!-- Chủ nhật -->
+				<Border BackgroundColor="#FFEBEE"
+                        StrokeThickness="0"
+                        Padding="12,8"
+                        WidthRequest="45"
+                        HeightRequest="50">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="8"/>
+					</Border.StrokeShape>
+					<VerticalStackLayout Spacing="2">
+						<Label Text="CN"
+                               FontSize="11"
+                               HorizontalOptions="Center"
+                               TextColor="#D32F2F"
+                               FontAttributes="Bold"/>
+					</VerticalStackLayout>
+				</Border>
+			</HorizontalStackLayout>
+		</Border>
+	</Grid>
 </ContentPage>

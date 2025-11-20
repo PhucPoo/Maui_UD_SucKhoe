@@ -51,8 +51,11 @@ public partial class RegisterPage : ContentPage
             return;
         }
 
-        // Gọi hàm đăng ký
-        var success = await _databaseService.RegisterUser(fullName, email, password);
+        // 👉 HASH mật khẩu trước khi gửi vào DB
+        string hashedPassword = _databaseService.HashPassword(password);
+
+        // Gọi hàm đăng ký với mật khẩu đã hash
+        var success = await _databaseService.RegisterUser(fullName, email, hashedPassword);
 
         if (success)
         {

@@ -2,70 +2,375 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UD_SucKhoe.HealthRecordsPage"
-             Title="Thống kê sức khỏe">
+             Shell.NavBarIsVisible="False">
 
-	<ScrollView>
-		<VerticalStackLayout Padding="20" Spacing="15">
+	<Grid RowDefinitions="Auto,*">
 
-			<!-- Header -->
-			<Label Text="Thống kê tình trạng sức khỏe"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"/>
+		<!-- Header Bar -->
+		<Border Grid.Row="0"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                Padding="16,12">
+			<Border.Shadow>
+				<Shadow Brush="Black" Offset="0,2" Radius="8" Opacity="0.1"/>
+			</Border.Shadow>
+			<Grid ColumnDefinitions="Auto,*">
+				<!-- Back Button -->
+				<Border Grid.Column="0"
+                        Stroke="#007AFF"
+                        StrokeThickness="2"
+                        Padding="0"
+                        BackgroundColor="#F0F7FF"
+                        WidthRequest="36"
+                        HeightRequest="36"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Margin="4,0,0,0">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="18"/>
+					</Border.StrokeShape>
+					<Border.Shadow>
+						<Shadow Brush="#007AFF"
+                                Offset="0,2"
+                                Radius="4"
+                                Opacity="0.2"/>
+					</Border.Shadow>
+					<Border.GestureRecognizers>
+						<TapGestureRecognizer Tapped="OnBackButtonClicked"/>
+					</Border.GestureRecognizers>
+					<Label Text="←"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#007AFF"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+				</Border>
 
-			<!-- Thông tin cơ bản -->
-			<Border BackgroundColor="LightBlue"
-					StrokeThickness="2"
-					Stroke="#0288D1"
-					Padding="15"
-					StrokeShape="RoundRectangle 10">
-				<VerticalStackLayout Spacing="10">
-					<Label Text="Chỉ số cơ bản" FontSize="18" FontAttributes="Bold"/>
-					<Label x:Name="HeartRateLabel" Text="Nhịp tim: -- bpm"/>
-					<Label x:Name="BloodPressureLabel" Text="Huyết áp: --/-- mmHg"/>
-					<Label x:Name="WeightLabel" Text="Cân nặng: -- kg"/>
-					<Label x:Name="HeightLabel" Text="Chiều cao: -- cm"/>
+				<!-- Title -->
+				<Label Grid.Column="1"
+                       Text="Hồ sơ sức khỏe"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       VerticalOptions="Center"
+                       Margin="12,0,0,0"/>
+			</Grid>
+		</Border>
+
+		<!-- Main Content with Background -->
+		<Grid Grid.Row="1">
+			<!-- Background -->
+			<BoxView BackgroundColor="#F8F9FA"/>
+
+			<ScrollView>
+				<VerticalStackLayout Padding="16" Spacing="16">
+
+					<!-- Welcome Card -->
+					<Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="20">
+						<Border.StrokeShape>
+							<RoundRectangle CornerRadius="16"/>
+						</Border.StrokeShape>
+						<Border.Shadow>
+							<Shadow Brush="Black" Offset="0,4" Radius="12" Opacity="0.08"/>
+						</Border.Shadow>
+						<VerticalStackLayout Spacing="8">
+							<Label Text="📊 Thống kê sức khỏe"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333"
+                                   HorizontalOptions="Center"/>
+							<Label Text="Theo dõi và quản lý sức khỏe của bạn"
+                                   FontSize="14"
+                                   TextColor="#666666"
+                                   HorizontalOptions="Center"/>
+						</VerticalStackLayout>
+					</Border>
+
+					<!-- Chỉ số cơ bản -->
+					<Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="20">
+						<Border.StrokeShape>
+							<RoundRectangle CornerRadius="20"/>
+						</Border.StrokeShape>
+						<Border.Shadow>
+							<Shadow Brush="Black" Offset="0,4" Radius="12" Opacity="0.08"/>
+						</Border.Shadow>
+
+						<VerticalStackLayout Spacing="12">
+							<HorizontalStackLayout Spacing="8">
+								<Label Text="❤️"
+                                       FontSize="24"/>
+								<Label Text="Chỉ số cơ bản"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#333333"
+                                       VerticalOptions="Center"/>
+							</HorizontalStackLayout>
+
+							<!-- Grid chỉ số 2x2 -->
+							<Grid RowDefinitions="Auto,Auto"
+                                  ColumnDefinitions="*,*"
+                                  RowSpacing="12"
+                                  ColumnSpacing="12"
+                                  Margin="0,8,0,0">
+
+								<!-- Nhịp tim -->
+								<Border Grid.Row="0" Grid.Column="0"
+                                        BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="12"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout Spacing="4">
+										<Label Text="💓 Nhịp tim"
+                                               FontSize="12"
+                                               TextColor="#666666"/>
+										<Label x:Name="HeartRateLabel"
+                                               Text="-- bpm"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#333333"/>
+									</VerticalStackLayout>
+								</Border>
+
+								<!-- Huyết áp -->
+								<Border Grid.Row="0" Grid.Column="1"
+                                        BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="12"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout Spacing="4">
+										<Label Text="🩺 Huyết áp"
+                                               FontSize="12"
+                                               TextColor="#666666"/>
+										<Label x:Name="BloodPressureLabel"
+                                               Text="--/-- mmHg"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#333333"/>
+									</VerticalStackLayout>
+								</Border>
+
+								<!-- Cân nặng -->
+								<Border Grid.Row="1" Grid.Column="0"
+                                        BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="12"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout Spacing="4">
+										<Label Text="⚖️ Cân nặng"
+                                               FontSize="12"
+                                               TextColor="#666666"/>
+										<Label x:Name="WeightLabel"
+                                               Text="-- kg"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#333333"/>
+									</VerticalStackLayout>
+								</Border>
+
+								<!-- Chiều cao -->
+								<Border Grid.Row="1" Grid.Column="1"
+                                        BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="12"/>
+									</Border.StrokeShape>
+									<VerticalStackLayout Spacing="4">
+										<Label Text="📏 Chiều cao"
+                                               FontSize="12"
+                                               TextColor="#666666"/>
+										<Label x:Name="HeightLabel"
+                                               Text="-- cm"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="#333333"/>
+									</VerticalStackLayout>
+								</Border>
+							</Grid>
+						</VerticalStackLayout>
+					</Border>
+
+					<!-- Lịch sử khám -->
+					<Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="20">
+						<Border.StrokeShape>
+							<RoundRectangle CornerRadius="20"/>
+						</Border.StrokeShape>
+						<Border.Shadow>
+							<Shadow Brush="Black" Offset="0,4" Radius="12" Opacity="0.08"/>
+						</Border.Shadow>
+
+						<VerticalStackLayout Spacing="12">
+							<HorizontalStackLayout Spacing="8">
+								<Label Text="📅"
+                                       FontSize="24"/>
+								<Label Text="Lịch sử khám gần đây"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#333333"
+                                       VerticalOptions="Center"/>
+							</HorizontalStackLayout>
+
+							<!-- Danh sách lịch khám -->
+							<VerticalStackLayout Spacing="10" Margin="0,8,0,0">
+								<Border BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="12">
+										<Label Text="🏥"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+										<VerticalStackLayout Spacing="2">
+											<Label Text="Khám tổng quát"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#333333"/>
+											<Label Text="15/10/2024"
+                                                   FontSize="12"
+                                                   TextColor="#666666"/>
+										</VerticalStackLayout>
+									</HorizontalStackLayout>
+								</Border>
+
+								<Border BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="12">
+										<Label Text="🦷"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+										<VerticalStackLayout Spacing="2">
+											<Label Text="Khám răng"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#333333"/>
+											<Label Text="01/09/2024"
+                                                   FontSize="12"
+                                                   TextColor="#666666"/>
+										</VerticalStackLayout>
+									</HorizontalStackLayout>
+								</Border>
+
+								<Border BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="12">
+										<Label Text="👁️"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+										<VerticalStackLayout Spacing="2">
+											<Label Text="Khám mắt"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#333333"/>
+											<Label Text="20/07/2024"
+                                                   FontSize="12"
+                                                   TextColor="#666666"/>
+										</VerticalStackLayout>
+									</HorizontalStackLayout>
+								</Border>
+							</VerticalStackLayout>
+						</VerticalStackLayout>
+					</Border>
+
+					<!-- Đơn thuốc -->
+					<Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="20">
+						<Border.StrokeShape>
+							<RoundRectangle CornerRadius="20"/>
+						</Border.StrokeShape>
+						<Border.Shadow>
+							<Shadow Brush="Black" Offset="0,4" Radius="12" Opacity="0.08"/>
+						</Border.Shadow>
+
+						<VerticalStackLayout Spacing="12">
+							<HorizontalStackLayout Spacing="8">
+								<Label Text="💊"
+                                       FontSize="24"/>
+								<Label Text="Đơn thuốc hiện tại"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#333333"
+                                       VerticalOptions="Center"/>
+							</HorizontalStackLayout>
+
+							<!-- Danh sách thuốc -->
+							<VerticalStackLayout Spacing="10" Margin="0,8,0,0">
+								<Border BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="12">
+										<Label Text="🟠"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+										<VerticalStackLayout Spacing="2">
+											<Label Text="Vitamin C"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#333333"/>
+											<Label Text="1 viên/ngày - Sau bữa ăn"
+                                                   FontSize="12"
+                                                   TextColor="#666666"/>
+										</VerticalStackLayout>
+									</HorizontalStackLayout>
+								</Border>
+
+								<Border BackgroundColor="#F5F5F5"
+                                        StrokeThickness="0"
+                                        Padding="12">
+									<Border.StrokeShape>
+										<RoundRectangle CornerRadius="10"/>
+									</Border.StrokeShape>
+									<HorizontalStackLayout Spacing="12">
+										<Label Text="⚪"
+                                               FontSize="20"
+                                               VerticalOptions="Center"/>
+										<VerticalStackLayout Spacing="2">
+											<Label Text="Thuốc giảm đau"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#333333"/>
+											<Label Text="Khi cần thiết - Tối đa 3 viên/ngày"
+                                                   FontSize="12"
+                                                   TextColor="#666666"/>
+										</VerticalStackLayout>
+									</HorizontalStackLayout>
+								</Border>
+							</VerticalStackLayout>
+						</VerticalStackLayout>
+					</Border>
+
+					<!-- Extra spacing at bottom -->
+					<BoxView HeightRequest="20" Color="Transparent"/>
+
 				</VerticalStackLayout>
-			</Border>
+			</ScrollView>
+		</Grid>
 
-			<!-- Lịch sử khám -->
-			<Border BackgroundColor="LightGreen"
-                    StrokeThickness="2"
-                    Stroke="#388E3C"
-                    Padding="15"
-                    StrokeShape="RoundRectangle 10">
-				<VerticalStackLayout Spacing="10">
-					<Label Text="Lịch sử khám gần đây" FontSize="18" FontAttributes="Bold"/>
-					<Label Text="• 15/10/2024 - Khám tổng quát"/>
-					<Label Text="• 01/09/2024 - Khám răng"/>
-					<Label Text="• 20/07/2024 - Khám mắt"/>
-				</VerticalStackLayout>
-			</Border>
-
-			<!-- Đơn thuốc -->
-			<Border BackgroundColor="LightYellow"
-                    StrokeThickness="2"
-                    Stroke="#FBC02D"
-                    Padding="15"
-                    StrokeShape="RoundRectangle 10">
-				<VerticalStackLayout Spacing="10">
-					<Label Text="Đơn thuốc hiện tại" FontSize="18" FontAttributes="Bold"/>
-					<Label Text="• Vitamin C - 1 viên/ngày"/>
-					<Label Text="• Thuốc đau đầu - Khi cần"/>
-				</VerticalStackLayout>
-			</Border>
-			<!-- Nút quay lại -->
-			<Button Text="Quay lại"
-                    BackgroundColor="#2196F3"
-                    TextColor="White"
-                    FontSize="16"
-                    FontAttributes="Bold"
-                    CornerRadius="10"
-                    HeightRequest="50"
-                    Margin="0,20,0,20"
-                    Clicked="OnBackButtonClicked"/>
-
-		</VerticalStackLayout>
-	</ScrollView>
+	</Grid>
 
 </ContentPage>

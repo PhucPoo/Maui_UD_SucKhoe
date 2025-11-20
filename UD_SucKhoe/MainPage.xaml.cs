@@ -108,7 +108,7 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        await Navigation.PushAsync(new NutritionPage(_latestBMI));
+        await Navigation.PushAsync(new NutritionPage());
     }
 
     private async void OnSleepTapped(object sender, EventArgs e)

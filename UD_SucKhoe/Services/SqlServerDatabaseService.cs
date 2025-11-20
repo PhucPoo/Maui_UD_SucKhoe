@@ -1,4 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using UD_SucKhoe.Models;
 
 namespace UD_SucKhoe.Services
@@ -10,6 +12,13 @@ namespace UD_SucKhoe.Services
         public SqlServerDatabaseService()
         {
             _connectionString = new DatabaseService().GetConnectionString(); // Hoặc ConnectionString
+        }
+
+        public string HashPassword(string password)
+        {
+            using var sha256 = SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
         }
 
         // Đăng ký người dùng mới
