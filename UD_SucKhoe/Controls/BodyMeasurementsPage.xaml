@@ -9,11 +9,19 @@
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Header -->
-            <Border BackgroundColor="White" 
-                    StrokeThickness="0"
-                    Padding="20"
-                    Shadow="{Shadow Brush=Gray, Offset='0,2', Radius=10, Opacity=0.3}">
-                <Border.StrokeShape>
+            <Border BackgroundColor="White"
+        StrokeThickness="0"
+        Padding="20">
+
+                <Border.Shadow>
+                    <Shadow Brush="Gray"
+                Offset="0,2"
+                Radius="10"
+                Opacity="0.3" />
+                </Border.Shadow>
+
+            
+            <Border.StrokeShape>
                     <RoundRectangle CornerRadius="15"/>
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="10">

@@ -5,9 +5,119 @@ namespace UD_SucKhoe;
 public partial class BodyMeasurementsPage : ContentPage
 {
     public event Action<double> BMICalculated;
+
     public BodyMeasurementsPage()
     {
         InitializeComponent();
+    }
+
+    // 👉 Tự động load dữ liệu khi trang xuất hiện
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Delay nhỏ để đảm bảo UI đã render xong
+        await Task.Delay(100);
+        await LoadLatestDataAsync();
+    }
+
+    // 👉 Method load dữ liệu mới nhất từ DB
+    private async Task LoadLatestDataAsync()
+    {
+        try
+        {
+            int userId = Preferences.Get("UserId", 0);
+
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] UserId from Preferences: {userId}");
+
+            if (userId == 0)
+            {
+                System.Diagnostics.Debug.WriteLine("[DEBUG] UserId = 0, user not logged in");
+                return; // Chưa đăng nhập thì bỏ qua
+            }
+
+            var db = new DatabaseService();
+            var latestProgress = await db.GetLatestProgressAsync(userId);
+
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] Latest progress data: {(latestProgress == null ? "NULL" : $"Height={latestProgress.Height}, Weight={latestProgress.Weight}")}");
+
+            // Kiểm tra nếu không có dữ liệu thì return
+            if (latestProgress == null)
+            {
+                System.Diagnostics.Debug.WriteLine("[DEBUG] No data found in database");
+                return;
+            }
+
+            // Điền thông tin vào Entry
+            HeightEntry.Text = latestProgress.Height.ToString();
+            WeightEntry.Text = latestProgress.Weight.ToString();
+
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] Set HeightEntry: {latestProgress.Height}, WeightEntry: {latestProgress.Weight}");
+
+            // Tự động tính BMI
+            double heightInMeters = latestProgress.Height / 100;
+            double bmi = latestProgress.Weight / (heightInMeters * heightInMeters);
+
+            BMICalculated?.Invoke(bmi);
+
+            // Hiển thị kết quả BMI
+            BMIValueLabel.Text = bmi.ToString("F2");
+
+            // Xác định trạng thái BMI
+            string status;
+            Color statusColor;
+            string description;
+
+            if (bmi < 18.5)
+            {
+                status = "Thiếu Cân";
+                statusColor = Color.FromArgb("#E74C3C");
+                description = "Bạn nên tăng cân để đạt chỉ số lý tưởng";
+            }
+            else if (bmi < 25)
+            {
+                status = "Bình Thường";
+                statusColor = Color.FromArgb("#27AE60");
+                description = "Chỉ số BMI của bạn ở mức lý tưởng";
+            }
+            else if (bmi < 30)
+            {
+                status = "Thừa Cân";
+                statusColor = Color.FromArgb("#F39C12");
+                description = "Bạn nên giảm cân để cải thiện sức khỏe";
+            }
+            else
+            {
+                status = "Béo Phì";
+                statusColor = Color.FromArgb("#E74C3C");
+                description = "Bạn cần giảm cân để cải thiện sức khỏe";
+            }
+
+            BMIStatusLabel.Text = status;
+            BMIStatusLabel.TextColor = statusColor;
+            BMIValueLabel.TextColor = statusColor;
+            BMIDescriptionLabel.Text = description;
+
+            // Hiển thị frame BMI
+            BMIFrame.IsVisible = true;
+
+            HeightResultLabel.Text = $"Chiều cao: {latestProgress.Height} cm";
+            HeightResultLabel.IsVisible = true;
+
+            WeightResultLabel.Text = $"Cân nặng: {latestProgress.Weight} kg";
+            WeightResultLabel.IsVisible = true;
+
+            System.Diagnostics.Debug.WriteLine("[DEBUG] UI updated successfully");
+        }
+        catch (Exception ex)
+        {
+            // Hiển thị lỗi thay vì silent fail
+            System.Diagnostics.Debug.WriteLine($"[ERROR] Load data error: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"[ERROR] StackTrace: {ex.StackTrace}");
+
+            // Hiển thị alert để debug
+            await DisplayAlert("Debug Error", $"Lỗi load dữ liệu: {ex.Message}", "OK");
+        }
     }
 
     private void OnCalculateBMIClicked(object sender, EventArgs e)
@@ -116,7 +226,6 @@ public partial class BodyMeasurementsPage : ContentPage
 
         try
         {
-            // 👉 Lấy UserId từ Preferences (được lưu khi đăng nhập)
             int userId = Preferences.Get("UserId", 0);
 
             if (userId == 0)
@@ -126,8 +235,6 @@ public partial class BodyMeasurementsPage : ContentPage
             }
 
             var db = new DatabaseService();
-
-            // 👉 Lưu đúng dữ liệu theo user đã đăng nhập
             await db.InsertProgressAsync(userId, height, weight);
 
             await DisplayAlert("Thành Công", "Đã lưu dữ liệu vào cơ sở dữ liệu!", "OK");
@@ -138,11 +245,8 @@ public partial class BodyMeasurementsPage : ContentPage
         }
     }
 
-
-
     private async void OnCloseClicked(object sender, EventArgs e)
     {
-        // Đóng modal page
         await Navigation.PopModalAsync();
     }
 }

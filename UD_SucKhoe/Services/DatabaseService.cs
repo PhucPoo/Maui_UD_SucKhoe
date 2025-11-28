@@ -16,9 +16,46 @@ namespace UD_SucKhoe.Services
             using var sha256 = SHA256.Create();
             var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(hashedBytes);
+
         }
 
+
+
+
+        public async Task<List<Exercise>> GetExpertExercises()
+        {
+            var list = new List<Exercise>();
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = "SELECT ExerciseID, ExerciseName, Type, DurationPerSet, CaloriesBurned, DifficultyLevel FROM Exercises";
+
+                using (var command = new SqlCommand(query, connection))
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        list.Add(new Exercise
+                        {
+                            ExerciseID = reader.GetInt32(0),
+                            ExerciseName = reader.GetString(1),
+                            Type = reader.GetString(2),
+                            DurationPerSet = reader.GetInt32(3),
+                            CaloriesBurned = reader.GetInt32(4),
+                            DifficultyLevel = reader.GetString(5)
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+
+
         // Kiểm tra email có tồn tại không
+
         public async Task<bool> CheckEmailExists(string email)
         {
             try

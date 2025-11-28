@@ -210,6 +210,28 @@ namespace UD_SucKhoe.Services
                 return null;
             }
         }
+        public async Task InsertProgressAsync(int userId, double height, double weight)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = @"
+            INSERT INTO ProgressTracking 
+            (UserID, Date, Weight, Height, CaloriesConsumed, CaloriesBurned, Note)
+            VALUES (@UserID, GETDATE(), @Weight, @Height, 0, 0, '')";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", userId);
+                    command.Parameters.AddWithValue("@Weight", weight);
+                    command.Parameters.AddWithValue("@Height", height);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
 
         // Test connection
         public async Task<bool> TestConnection()

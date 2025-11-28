@@ -15,21 +15,21 @@
         private async void OnExpertPlanTapped(object sender, EventArgs e)
         {
             // Chuyển đến trang chi tiết kế hoạch chuyên gia
-            await DisplayAlert("Kế hoạch Chuyên gia", "Tại gym - 33 ngày tập luyện", "OK");
+            await Navigation.PushModalAsync(new WorkoutDetailPage());
             // TODO: await Navigation.PushAsync(new WorkoutDetailPage("expert"));
         }
 
         private async void OnWeightLossTapped(object sender, EventArgs e)
         {
             // Chuyển đến trang chi tiết giảm cân Pro
-            await DisplayAlert("Giảm Cân - Pro", "Tại gym - 33 ngày tập luyện", "OK");
+            await Navigation.PushModalAsync(new ExerciseLosingPagePro());
             // TODO: await Navigation.PushAsync(new WorkoutDetailPage("weight-loss-pro"));
         }
 
         private async void OnWeightLossHomeTapped(object sender, EventArgs e)
         {
             // Chuyển đến trang chi tiết giảm cân tại nhà
-            await DisplayAlert("Giảm Cân - Tại nhà", "22 ngày tập luyện", "OK");
+            await Navigation.PushModalAsync(new ExerciseLosingPageExp());
             // TODO: await Navigation.PushAsync(new WorkoutDetailPage("weight-loss-home"));
         }
 

@@ -1,0 +1,51 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UD_SucKhoe.ExerciseLosingPageBeginer"
+             Title="Kế hoạch tập luyện giảm cân người bắt đầu">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Kế hoạch tập luyện 3 ngày"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <CollectionView x:Name="ExerciseList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="15" Margin="5" >
+                            <VerticalStackLayout>
+                                <Label Text="{Binding ExerciseName}" FontSize="20" FontAttributes="Bold" />
+                                <Label Text="{Binding Type}" TextColor="Gray"/>
+
+                                <Label Text="{Binding DurationPerSet, StringFormat='Thời gian m?i set: {0} giây'}"/>
+                                <Label Text="{Binding CaloriesBurned, StringFormat='Calories ??t: {0} kcal'}"/>
+                                <Label Text="{Binding DifficultyLevel, StringFormat='?? khó: {0}'}"/>
+                            </VerticalStackLayout>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!--Nút quay l?i-->
+
+            <Button Text="? Quay lại"
+                        FontSize="16"
+                        TextColor="White"
+                        HeightRequest="50"
+                        Margin="0,20,0,0"
+                        Clicked="OnBackButtonClicked">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#7B68EE" Offset="0.0"/>
+                        <GradientStop Color="#4A90E2" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
