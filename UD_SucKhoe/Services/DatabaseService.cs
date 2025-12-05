@@ -7,8 +7,14 @@ namespace UD_SucKhoe.Services
 {
     public class DatabaseService
     {
+
         private readonly string connectionString =
             "Server=DESKTOP-27P4LC3;Database=DB_SucKhoe;Trusted_Connection=True;TrustServerCertificate=True;";
+
+        public SqlConnection GetConnection()
+        {
+            return new SqlConnection(connectionString);
+        }
 
         // Hash password (dùng SHA256)
         public string HashPassword(string password)

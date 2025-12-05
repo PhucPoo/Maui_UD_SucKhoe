@@ -112,6 +112,9 @@
 	  <MauiXaml Update="Controls\MenuPage\MenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\MenuPage\WorkoutManagementPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\Nutrition\NutritionPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

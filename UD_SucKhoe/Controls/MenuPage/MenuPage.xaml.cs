@@ -19,7 +19,7 @@
 
         private async void OnWorkoutManagementTapped(object sender, EventArgs e)
         {
-            await DisplayAlert("Quản lý tập luyện", "Chức năng đang phát triển", "OK");
+            await Navigation.PushModalAsync(new WorkoutManagementPage());
         }
 
         private async void OnSettingsTapped(object sender, EventArgs e)
