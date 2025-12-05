@@ -106,7 +106,10 @@
 	  <MauiXaml Update="Controls\LeftSideModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\LoginPage.xaml">
+	  <MauiXaml Update="Controls\Login\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\MenuPage\MenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\Nutrition\NutritionPage.xaml">
@@ -115,7 +118,7 @@
 	  <MauiXaml Update="Controls\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\RegisterPage.xaml">
+	  <MauiXaml Update="Controls\Register\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\ResetPasswordPage.xaml">

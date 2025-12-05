@@ -87,8 +87,10 @@ public partial class MainPage : ContentPage
 
     private async void OnMenuTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Menu", "Chức năng menu đang được phát triển", "OK");
+        // Chuyển sang trang Menu - che toàn màn hình
+        await Navigation.PushAsync(new MenuPage());
     }
+
 
     private async void OnActivityTapped(object sender, EventArgs e)
     {
