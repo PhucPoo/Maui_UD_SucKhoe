@@ -17,6 +17,10 @@ public partial class NutritionPage : ContentPage
         _dbService = new DatabaseService();
     }
 
+    private async void OnBackTapped(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }
     protected override async void OnAppearing()
     {
         base.OnAppearing();

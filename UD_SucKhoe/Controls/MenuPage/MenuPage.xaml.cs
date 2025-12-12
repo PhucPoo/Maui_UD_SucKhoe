@@ -14,7 +14,7 @@
 
         private async void OnMenuManagementTapped(object sender, EventArgs e)
         {
-            await DisplayAlert("Quản lý thực đơn", "Chức năng đang phát triển", "OK");
+            await Navigation.PushModalAsync(new NutritionPage());
         }
 
         private async void OnWorkoutManagementTapped(object sender, EventArgs e)
