@@ -1,20 +1,27 @@
-﻿using UD_SucKhoe.Helpers;
-using UD_SucKhoe.Models;
-using UD_SucKhoe.Services;
+﻿using UD_SucKhoe.Models;
+using UD_SucKhoe.Services.Database;
+using UD_SucKhoe.Services.Nutrition;
 
 namespace UD_SucKhoe;
 
 public partial class NutritionPage : ContentPage
 {
+    private readonly NutritionViewModel _viewModel;
     private readonly DatabaseService _dbService;
+    private readonly INutritionService _nutritionService;
+
     private int _currentUserId;
     private double _currentBmi;
     private Dictionary<string, MealPlan> _weeklyMealPlan;
 
-    public NutritionPage()
+    public NutritionPage(DatabaseService dbService, INutritionService nutritionService)
     {
         InitializeComponent();
-        _dbService = new DatabaseService();
+
+        _dbService = dbService;
+        _nutritionService = nutritionService;
+
+        _viewModel = new NutritionViewModel(dbService, nutritionService);
     }
 
     private async void OnBackTapped(object sender, EventArgs e)
@@ -31,39 +38,24 @@ public partial class NutritionPage : ContentPage
     {
         try
         {
-            // Lấy thông tin user hiện tại (giả sử đã đăng nhập)
-            _currentUserId = Preferences.Get("UserId", 0);
+            bool success = await _viewModel.LoadData();
 
-            if (_currentUserId == 0)
+            if (!success)
             {
-                await DisplayAlert("Lỗi", "Vui lòng đăng nhập", "OK");
+                await DisplayAlert("Lỗi", "Không có dữ liệu", "OK");
                 return;
             }
 
-            // Lấy chiều cao và cân nặng mới nhất
-            var progress = await _dbService.GetLatestProgressAsync(_currentUserId);
+            // map lại sang page (để reuse UI cũ)
+            _currentUserId = _viewModel.CurrentUserId;
+            _currentBmi = _viewModel.CurrentBmi;
+            _weeklyMealPlan = _viewModel.WeeklyMealPlan;
 
-            if (progress == null)
-            {
-                await DisplayAlert("Thông báo", "Vui lòng cập nhật chiều cao và cân nặng trước", "OK");
-                return;
-            }
-
-            // Tính BMI
-            _currentBmi = progress.Weight / Math.Pow(progress.Height / 100, 2);
-
-            // Lấy thực đơn theo BMI
-            _weeklyMealPlan = NutritionHelper.GetWeeklyMealsByBMI(_currentBmi);
-
-            // Hiển thị thực đơn hôm nay
             DisplayTodayMeal();
-
-            // Tùy chọn: Lưu toàn bộ thực đơn tuần vào DB
-            // await SaveWeeklyMealPlanToDatabase();
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Lỗi", $"Không thể tải dữ liệu: {ex.Message}", "OK");
+            await DisplayAlert("Lỗi", ex.Message, "OK");
         }
     }
 
@@ -75,7 +67,7 @@ public partial class NutritionPage : ContentPage
             ContentLayout.Children.Clear();
 
             // Lấy ngày hiện tại
-            string today = NutritionHelper.ConvertDayOfWeekToVietnamese(DateTime.Today.DayOfWeek);
+            string today = _nutritionService.ConvertDayOfWeekToVietnamese(DateTime.Today.DayOfWeek);
 
             if (!_weeklyMealPlan.ContainsKey(today))
             {
@@ -208,7 +200,7 @@ public partial class NutritionPage : ContentPage
             button.IsEnabled = false;
             button.Text = "Đang lưu...";
 
-            string today = NutritionHelper.ConvertDayOfWeekToVietnamese(DateTime.Today.DayOfWeek);
+            string today = _nutritionService.ConvertDayOfWeekToVietnamese(DateTime.Today.DayOfWeek);
             var todayMeal = _weeklyMealPlan[today];
 
             bool success = true;

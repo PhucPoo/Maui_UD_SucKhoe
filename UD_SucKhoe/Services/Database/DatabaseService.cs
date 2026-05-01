@@ -2,10 +2,9 @@
 using System.Security.Cryptography;
 using System.Text;
 using UD_SucKhoe.Models;
-
-namespace UD_SucKhoe.Services
+namespace UD_SucKhoe.Services.Database
 {
-    public class DatabaseService
+    public class DatabaseService : IDatabaseService
     {
 
         private readonly string connectionString =
@@ -303,7 +302,7 @@ namespace UD_SucKhoe.Services
         }
 
         // Lấy progress mới nhất
-        public async Task<ProgressData?> GetLatestProgressAsync(int userId)
+        public async Task<ProgressTracking?> GetLatestProgressAsync(int userId)
         {
             try
             {
@@ -321,7 +320,7 @@ namespace UD_SucKhoe.Services
                         {
                             if (await reader.ReadAsync())
                             {
-                                return new ProgressData
+                                return new ProgressTracking
                                 {
                                     Weight = (double)reader.GetDecimal(0),
                                     Height = reader.GetDouble(1)
@@ -510,7 +509,7 @@ namespace UD_SucKhoe.Services
                         command.Parameters.AddWithValue("@Date", DateTime.Now);
 
                         // Tính calories khuyến nghị dựa trên BMI
-                        int recommendedCalories = bmi < 18.5 ? 2500 : (bmi <= 24.9 ? 2000 : 1500);
+                        int recommendedCalories = bmi < 18.5 ? 2500 : bmi <= 24.9 ? 2000 : 1500;
                         command.Parameters.AddWithValue("@RecommendedCalories", recommendedCalories);
                         command.Parameters.AddWithValue("@RecommendedFoods", recommendedFoods);
                         command.Parameters.AddWithValue("@RecommendedExercises", DBNull.Value);

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using UD_SucKhoe.Services.Database;
+using UD_SucKhoe.Services.Nutrition;
 
 
 namespace UD_SucKhoe;
@@ -110,7 +112,7 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        await Navigation.PushAsync(new NutritionPage());
+        await Navigation.PushAsync(new NutritionPage(new DatabaseService(), new NutritionService()));
     }
 
     private async void OnSleepTapped(object sender, EventArgs e)

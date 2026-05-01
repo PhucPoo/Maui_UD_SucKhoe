@@ -1,9 +1,9 @@
 ﻿using UD_SucKhoe.Models;
-namespace UD_SucKhoe.Helpers;
+namespace UD_SucKhoe.Services.Nutrition;
 
-public static class NutritionHelper
+public class NutritionService : INutritionService
 {
-    public static MealPlan GetMealsByBMI(double bmi)
+    public MealPlan GetMealsByBMI(double bmi)
     {
         var meal = new MealPlan();
         if (bmi < 18.5)
@@ -60,7 +60,7 @@ public static class NutritionHelper
         return meal;
     }
 
-    public static Dictionary<string, MealPlan> GetWeeklyMealsByBMI(double bmi)
+    public Dictionary<string, MealPlan> GetWeeklyMealsByBMI(double bmi)
     {
         var weeklyPlan = new Dictionary<string, MealPlan>();
 
@@ -728,14 +728,14 @@ public static class NutritionHelper
     }
 
     // Lấy thực đơn theo ngày trong tuần
-    public static MealPlan GetMealByDayOfWeek(double bmi, string dayOfWeek)
+    public MealPlan GetMealByDayOfWeek(double bmi, string dayOfWeek)
     {
         var weeklyPlan = GetWeeklyMealsByBMI(bmi);
         return weeklyPlan.ContainsKey(dayOfWeek) ? weeklyPlan[dayOfWeek] : new MealPlan();
     }
 
     // Chuyển đổi DayOfWeek sang tiếng Việt
-    public static string ConvertDayOfWeekToVietnamese(DayOfWeek day)
+    public string ConvertDayOfWeekToVietnamese(DayOfWeek day)
     {
         return day switch
         {

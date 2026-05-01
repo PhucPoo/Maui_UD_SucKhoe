@@ -69,62 +69,58 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Controls\BodyMeasurementsPage.xaml.cs">
+	  <Compile Update="Views\Healths\BodyMeasurementsPage.xaml.cs">
 	    <DependentUpon>BodyMeasurementsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\Activity\ActivityPage.xaml">
+	  <MauiXaml Update="Views\Activity\ActivityPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Activity\ExerciseLosingPageBeginer.xaml">
+	  <MauiXaml Update="Views\Activity\ExerciseLosingPageBeginer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Activity\ExerciseLosingPageExp.xaml">
+	  <MauiXaml Update="Views\Activity\ExerciseLosingPageExp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Activity\ExerciseLosingPagePro.xaml">
+	  <MauiXaml Update="Views\Activity\ExerciseLosingPagePro.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Activity\WorkoutDetailPage.xaml">
+	  <MauiXaml Update="Views\Activity\WorkoutDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\BodyMeasurementsPage.xaml">
+	  <MauiXaml Update="Views\Healths\BodyMeasurementsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\ForgotPasswordPage.xaml">
+	  <MauiXaml Update="Views\Login\ForgotPasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\HealthRecordsPage.xaml">
+	  <MauiXaml Update="Views\Healths\HealthRecordsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\LeftSideModal.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Login\LoginPage.xaml">
+	  <MauiXaml Update="Views\Login\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\MenuPage\MenuPage.xaml">
+	  <MauiXaml Update="Views\MenuPage\MenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\MenuPage\WorkoutManagementPage.xaml">
+	  <MauiXaml Update="Views\MenuPage\WorkoutManagementPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Nutrition\NutritionPage.xaml">
+	  <MauiXaml Update="Views\Nutrition\NutritionPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\ProfilePage.xaml">
+	  <MauiXaml Update="Views\Profile\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\Register\RegisterPage.xaml">
+	  <MauiXaml Update="Views\Login\RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\ResetPasswordPage.xaml">
+	  <MauiXaml Update="Views\Login\ResetPasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

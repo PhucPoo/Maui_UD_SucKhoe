@@ -1,4 +1,4 @@
-﻿using UD_SucKhoe.Services;
+﻿using UD_SucKhoe.Services.Database;
 
 namespace UD_SucKhoe;
 public partial class HealthRecordsPage : ContentPage

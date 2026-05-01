@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using UD_SucKhoe.Models;
+using UD_SucKhoe.Services.Database;
 
 namespace UD_SucKhoe.Services
 {

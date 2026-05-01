@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using UD_SucKhoe.Services;
+using UD_SucKhoe.Services.Database;
 
 namespace UD_SucKhoe
 {

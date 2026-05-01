@@ -1,11 +1,11 @@
-﻿using UD_SucKhoe.Services;
+﻿using UD_SucKhoe.Services.Database;
 namespace UD_SucKhoe
 {
-    public partial class WorkoutDetailPage : ContentPage
+    public partial class ExerciseLosingPageExp : ContentPage
     {
         private readonly DatabaseService _db = new DatabaseService();
 
-        public WorkoutDetailPage()
+        public ExerciseLosingPageExp()
         {
             InitializeComponent();
             LoadExercises();

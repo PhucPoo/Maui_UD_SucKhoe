@@ -1,4 +1,4 @@
-﻿using UD_SucKhoe.Services;
+﻿using UD_SucKhoe.Services.Database;
 
 namespace UD_SucKhoe;
 
@@ -15,6 +15,8 @@ public partial class BodyMeasurementsPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+
 
         // Delay nhỏ để đảm bảo UI đã render xong
         await Task.Delay(100);

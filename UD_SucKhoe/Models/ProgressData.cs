@@ -1,6 +1,6 @@
 ﻿namespace UD_SucKhoe.Models
 {
-    public class ProgressData
+    public class ProgressTracking
     {
         public int ProgressID { get; set; }
         public int UserID { get; set; }

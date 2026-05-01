@@ -14,7 +14,8 @@
 
         private async void OnMenuManagementTapped(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NutritionPage());
+            var page = App.Services.GetService<NutritionPage>();
+            await Navigation.PushModalAsync(page);
         }
 
         private async void OnWorkoutManagementTapped(object sender, EventArgs e)
