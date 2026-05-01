@@ -98,7 +98,7 @@
                                     <RoundRectangle CornerRadius="10"/>
                                 </Border.StrokeShape>
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnEditTapped" CommandParameter="{Binding}"/>
+                                    <TapGestureRecognizer Command="{Binding EditCommand}" CommandParameter="{Binding}"/>
                                 </Border.GestureRecognizers>
                                 <Label Text="✏️"
                                        FontSize="24"
@@ -117,7 +117,7 @@
                                     <RoundRectangle CornerRadius="10"/>
                                 </Border.StrokeShape>
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnDeleteTapped" CommandParameter="{Binding}"/>
+                                    <TapGestureRecognizer Command="{Binding DeleteCommand}" CommandParameter="{Binding}"/>
                                 </Border.GestureRecognizers>
                                 <Label Text="🗑️"
                                        FontSize="24"
@@ -143,7 +143,7 @@
                 <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.2"/>
             </Border.Shadow>
             <Border.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnAddTapped"/>
+                <TapGestureRecognizer Command="{Binding AddCommand}"/>
             </Border.GestureRecognizers>
             <Label Text="➕ Thêm bài tập mới"
                    FontSize="18"
