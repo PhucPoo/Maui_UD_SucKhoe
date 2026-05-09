@@ -14,7 +14,6 @@ public partial class HealthRecordsPage : ContentPage
     {
         try
         {
-            // 👉 Lấy UserId từ Preferences (người dùng đã đăng nhập)
             int userId = Preferences.Get("UserId", 0);
 
             if (userId == 0)
@@ -23,7 +22,6 @@ public partial class HealthRecordsPage : ContentPage
                 return;
             }
 
-            // 👉 Lấy dữ liệu mới nhất từ database với UserId đúng
             var latest = await _dbService.GetLatestProgressAsync(userId);
 
             if (latest != null)
@@ -31,12 +29,9 @@ public partial class HealthRecordsPage : ContentPage
                 WeightLabel.Text = $"Cân nặng: {latest.Weight} kg";
                 HeightLabel.Text = $"Chiều cao: {latest.Height} cm";
 
-                // 👉 Bonus: Tính và hiển thị BMI (nếu có Label)
                 double heightInMeters = latest.Height / 100;
                 double bmi = latest.Weight / (heightInMeters * heightInMeters);
 
-                // Nếu bạn có BMILabel trong XAML thì uncomment dòng này:
-                // BMILabel.Text = $"BMI: {bmi:F2}";
             }
             else
             {
@@ -53,6 +48,6 @@ public partial class HealthRecordsPage : ContentPage
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
+        await Navigation.PushAsync(new MainPage());
     }
 }

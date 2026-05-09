@@ -11,20 +11,17 @@ public class RegisterViewModel
         _databaseService = databaseService;
     }
 
-    // Test DB
     public async Task<bool> TestConnection()
     {
         return await _databaseService.TestConnection();
     }
 
-    // Đăng ký
     public async Task<(bool Success, string Message)> Register(
         string fullName,
         string email,
         string password,
         string confirmPassword)
     {
-        // Validate
         if (string.IsNullOrEmpty(fullName) ||
             string.IsNullOrEmpty(email) ||
             string.IsNullOrEmpty(password))
@@ -44,7 +41,6 @@ public class RegisterViewModel
 
         try
         {
-            // Hash password
             string hashedPassword = _databaseService.HashPassword(password);
 
             var success = await _databaseService.RegisterUser(fullName, email, hashedPassword);

@@ -8,6 +8,7 @@
         public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            Preferences.Clear();
             Services = serviceProvider;
         }
 

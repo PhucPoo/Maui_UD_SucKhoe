@@ -17,7 +17,6 @@ namespace UD_SucKhoe
         {
             try
             {
-                // Lấy thông tin từ Preferences
                 string fullName = Preferences.Get("FullName", "Nguoi dung");
                 string email = Preferences.Get("Email", "Chua cap nhat");
                 string phone = Preferences.Get("Phone", "Chua cap nhat");
@@ -26,10 +25,8 @@ namespace UD_SucKhoe
                 string password = Preferences.Get("Password", "");
                 string createdDate = Preferences.Get("CreatedDate", "Chua cap nhat");
 
-                // Hiển thị trên header
                 lblFullName.Text = fullName;
 
-                // Hiển thị ở các field
                 lblFullNameField.Text = fullName;
                 entryFullName.Text = fullName;
 
@@ -121,7 +118,6 @@ namespace UD_SucKhoe
         {
             try
             {
-                // Validate
                 if (string.IsNullOrWhiteSpace(entryFullName.Text))
                 {
                     await DisplayAlert("Loi", "Ho va ten khong duoc de trong!", "OK");
@@ -134,7 +130,6 @@ namespace UD_SucKhoe
                     return;
                 }
 
-                // Lưu vào Preferences
                 Preferences.Set("FullName", entryFullName.Text);
                 Preferences.Set("Email", entryEmail.Text);
                 Preferences.Set("Phone", entryPhone.Text);
@@ -146,10 +141,8 @@ namespace UD_SucKhoe
                     Preferences.Set("Password", entryPassword.Text);
                 }
 
-                // TODO: Cập nhật vào database
                 await UpdateToDatabase();
 
-                // Cập nhật UI
                 lblFullName.Text = entryFullName.Text;
                 lblFullNameField.Text = entryFullName.Text;
                 lblEmailField.Text = entryEmail.Text;
@@ -157,7 +150,6 @@ namespace UD_SucKhoe
                 lblAddressField.Text = entryAddress.Text;
                 lblBirthdayField.Text = dateBirthday.Date.ToString("dd/MM/yyyy");
 
-                // Ẩn Entry, hiện Label
                 lblFullNameField.IsVisible = true;
                 entryFullName.IsVisible = false;
 
@@ -191,7 +183,6 @@ namespace UD_SucKhoe
         {
             try
             {
-                // Lấy UserID đang đăng nhập (đảm bảo bạn đã lưu khi login)
                 int userId = Preferences.Get("UserId", 0);
 
                 if (userId == 0)
@@ -200,7 +191,6 @@ namespace UD_SucKhoe
                     return;
                 }
 
-                // Lấy connection từ DatabaseService
                 var dbService = new DatabaseService();
                 string connectionString = dbService.GetConnectionString();
 

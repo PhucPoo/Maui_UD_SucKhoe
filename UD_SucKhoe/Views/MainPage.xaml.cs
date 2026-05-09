@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using UD_SucKhoe.Services.Database;
-using UD_SucKhoe.Services.Nutrition;
 
 
 namespace UD_SucKhoe;
@@ -12,7 +10,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
-        // Đăng ký nhận message khi đăng nhập thành công
         WeakReferenceMessenger.Default.Register<LoginMessage>(this, (r, m) =>
         {
             UpdateUserUI();
@@ -22,8 +19,8 @@ public partial class MainPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        // Cập nhật UI mỗi khi màn hình hiển thị
         UpdateUserUI();
+        _latestBMI = Preferences.Get("LatestBMI", 0.0);
     }
 
     private void UpdateUserUI()
@@ -32,11 +29,9 @@ public partial class MainPage : ContentPage
 
         if (isLoggedIn)
         {
-            // Hiển thị avatar, ẩn nút đăng nhập
             AvatarBorder.IsVisible = true;
             LoginButton.IsVisible = false;
 
-            // Lấy đường dẫn avatar
             string avatarUrl = Preferences.Get("AvatarUrl", string.Empty);
 
             if (!string.IsNullOrEmpty(avatarUrl))
@@ -45,13 +40,11 @@ public partial class MainPage : ContentPage
             }
             else
             {
-                // Hiển thị avatar mặc định
                 AvatarImage.Source = "default_avatar.png";
             }
         }
         else
         {
-            // Ẩn avatar, hiển thị nút đăng nhập
             AvatarBorder.IsVisible = false;
             LoginButton.IsVisible = true;
         }
@@ -76,7 +69,6 @@ public partial class MainPage : ContentPage
 
         if (action == "Đăng xuất")
         {
-            // Xóa thông tin đăng nhập
             Preferences.Clear();
             UpdateUserUI();
             await DisplayAlert("Thông báo", "Đã đăng xuất thành công!", "OK");
@@ -89,14 +81,13 @@ public partial class MainPage : ContentPage
 
     private async void OnMenuTapped(object sender, EventArgs e)
     {
-        // Chuyển sang trang Menu - che toàn màn hình
-        await Navigation.PushAsync(new MenuPage());
+        await Shell.Current.GoToAsync(nameof(MenuPage));
     }
 
 
     private async void OnActivityTapped(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ActivityPage());
+        await Shell.Current.GoToAsync(nameof(ActivityPage));
     }
 
     private async void OnMindfulnessTapped(object sender, EventArgs e)
@@ -106,13 +97,15 @@ public partial class MainPage : ContentPage
 
     private async void OnNutritionTapped(object sender, EventArgs e)
     {
+        _latestBMI = Preferences.Get("LatestBMI", 0.0);
         if (_latestBMI == 0)
         {
             await DisplayAlert("Thông báo", "Vui lòng tính BMI trước!", "OK");
             return;
         }
 
-        await Navigation.PushAsync(new NutritionPage(new DatabaseService(), new NutritionService()));
+
+        await Shell.Current.GoToAsync(nameof(NutritionPage));
     }
 
     private async void OnSleepTapped(object sender, EventArgs e)
@@ -129,6 +122,7 @@ public partial class MainPage : ContentPage
             bodyMeasurements.BMICalculated += (bmi) =>
             {
                 _latestBMI = bmi;
+                Preferences.Set("LatestBMI", bmi);
                 Dispatcher.Dispatch(async () =>
                 {
                     await DisplayAlert("Đã tính BMI", $"BMI của bạn: {bmi:F2}", "OK");
@@ -192,7 +186,6 @@ public partial class MainPage : ContentPage
 
     private async void OnBrowseTapped(object sender, EventArgs e)
     {
-        // Đây là trang hiện tại
         await DisplayAlert("", "", "OK");
     }
 
@@ -209,12 +202,10 @@ public partial class MainPage : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        // Hủy đăng ký khi page bị dispose
         WeakReferenceMessenger.Default.Unregister<LoginMessage>(this);
     }
 }
 
-// Define the message class
 public class LoginMessage
 {
 }

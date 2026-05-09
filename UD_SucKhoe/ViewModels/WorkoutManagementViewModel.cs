@@ -19,7 +19,6 @@ public class WorkoutManagementViewModel : INotifyPropertyChanged
         _databaseService = new DatabaseService();
     }
 
-    // ================= LOAD =================
     public async Task LoadExercises()
     {
         try
@@ -58,7 +57,6 @@ public class WorkoutManagementViewModel : INotifyPropertyChanged
         }
     }
 
-    // ================= ADD =================
     public async Task AddExercise(string name, string type, int duration, int calories, string difficulty)
     {
         using (SqlConnection conn = _databaseService.GetConnection())
@@ -82,7 +80,6 @@ public class WorkoutManagementViewModel : INotifyPropertyChanged
         }
     }
 
-    // ================= UPDATE =================
     public async Task UpdateExercise(Exercise exercise, string name, string type, int duration, int calories, string difficulty)
     {
         using (SqlConnection conn = _databaseService.GetConnection())
@@ -111,7 +108,6 @@ public class WorkoutManagementViewModel : INotifyPropertyChanged
         }
     }
 
-    // ================= DELETE =================
     public async Task DeleteExercise(int id)
     {
         using (SqlConnection conn = _databaseService.GetConnection())
@@ -130,5 +126,5 @@ public class WorkoutManagementViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
     private void OnPropertyChanged([CallerMemberName] string name = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }

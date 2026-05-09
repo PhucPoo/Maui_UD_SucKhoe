@@ -16,7 +16,6 @@ public class ResetPasswordViewModel
         string newPass,
         string confirmPass)
     {
-        // Validate
         if (string.IsNullOrWhiteSpace(newPass) || string.IsNullOrWhiteSpace(confirmPass))
         {
             return (false, "Vui lòng nhập đầy đủ thông tin");
