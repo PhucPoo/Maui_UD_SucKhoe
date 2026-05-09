@@ -24,7 +24,6 @@ public class LoginViewModel
 
             if (user != null)
             {
-                // Lưu session
                 Preferences.Set("IsLoggedIn", true);
                 Preferences.Set("UserId", user.UserID);
                 Preferences.Set("Email", user.Email);

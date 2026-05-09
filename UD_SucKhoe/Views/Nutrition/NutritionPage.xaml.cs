@@ -26,7 +26,7 @@ public partial class NutritionPage : ContentPage
 
     private async void OnBackTapped(object sender, EventArgs e)
     {
-        await Navigation.PopModalAsync();
+        await Navigation.PushModalAsync(new MainPage());
     }
     protected override async void OnAppearing()
     {
@@ -46,7 +46,6 @@ public partial class NutritionPage : ContentPage
                 return;
             }
 
-            // map lại sang page (để reuse UI cũ)
             _currentUserId = _viewModel.CurrentUserId;
             _currentBmi = _viewModel.CurrentBmi;
             _weeklyMealPlan = _viewModel.WeeklyMealPlan;
@@ -63,10 +62,8 @@ public partial class NutritionPage : ContentPage
     {
         try
         {
-            // Xóa nội dung cũ
             ContentLayout.Children.Clear();
 
-            // Lấy ngày hiện tại
             string today = _nutritionService.ConvertDayOfWeekToVietnamese(DateTime.Today.DayOfWeek);
 
             if (!_weeklyMealPlan.ContainsKey(today))
@@ -81,7 +78,6 @@ public partial class NutritionPage : ContentPage
 
             var todayMeal = _weeklyMealPlan[today];
 
-            // Hiển thị thông tin BMI
             var bmiLabel = new Label
             {
                 Text = $"BMI của bạn: {_currentBmi:F1} - {GetBMICategory(_currentBmi)}",
@@ -93,7 +89,6 @@ public partial class NutritionPage : ContentPage
             };
             ContentLayout.Children.Add(bmiLabel);
 
-            // Hiển thị thực đơn hôm nay
             var todayLabel = new Label
             {
                 Text = $"Thực đơn {today}",
@@ -104,19 +99,14 @@ public partial class NutritionPage : ContentPage
             };
             ContentLayout.Children.Add(todayLabel);
 
-            // Sáng
             AddMealSection("🌅 Bữa sáng", todayMeal.Breakfast, "#FFF3E0");
 
-            // Trưa
             AddMealSection("☀️ Bữa trưa", todayMeal.Lunch, "#E8F5E9");
 
-            // Phụ
             AddMealSection("🍎 Bữa phụ", todayMeal.Snack, "#F3E5F5");
 
-            // Tối
             AddMealSection("🌙 Bữa tối", todayMeal.Dinner, "#E3F2FD");
 
-            // Nút lưu thực đơn
             var saveButton = new Button
             {
                 Text = "Lưu thực đơn hôm nay",
@@ -128,7 +118,6 @@ public partial class NutritionPage : ContentPage
             saveButton.Clicked += OnSaveTodayMealClicked;
             ContentLayout.Children.Add(saveButton);
 
-            // Nút lưu cả tuần
             var saveWeekButton = new Button
             {
                 Text = "Lưu thực đơn cả tuần",
@@ -159,7 +148,6 @@ public partial class NutritionPage : ContentPage
 
         var stack = new VerticalStackLayout { Spacing = 8 };
 
-        // Tiêu đề
         stack.Children.Add(new Label
         {
             Text = title,
@@ -168,7 +156,6 @@ public partial class NutritionPage : ContentPage
             TextColor = Color.FromArgb("#333333")
         });
 
-        // Danh sách món ăn
         foreach (var item in items)
         {
             stack.Children.Add(new Label
@@ -191,7 +178,6 @@ public partial class NutritionPage : ContentPage
         return "Béo phì (Cần giảm cân gấp)";
     }
 
-    // Lưu thực đơn hôm nay
     private async void OnSaveTodayMealClicked(object sender, EventArgs e)
     {
         try
@@ -205,7 +191,6 @@ public partial class NutritionPage : ContentPage
 
             bool success = true;
 
-            // Lưu từng bữa ăn
             success &= await _dbService.SaveMealPlanAsync(
                 _currentUserId,
                 DateTime.Today,
@@ -234,7 +219,6 @@ public partial class NutritionPage : ContentPage
                 string.Join(", ", todayMeal.Dinner)
             );
 
-            // Lưu recommendation
             string recommendedFoods = $"Breakfast: {string.Join(", ", todayMeal.Breakfast)}; " +
                                      $"Lunch: {string.Join(", ", todayMeal.Lunch)}; " +
                                      $"Snack: {string.Join(", ", todayMeal.Snack)}; " +
@@ -265,7 +249,6 @@ public partial class NutritionPage : ContentPage
         }
     }
 
-    // Lưu thực đơn cả tuần
     private async void OnSaveWeeklyMealClicked(object sender, EventArgs e)
     {
         try
