@@ -57,6 +57,7 @@
 		<!-- Danh sách bài tập -->
         <CollectionView Grid.Row="1"
                         x:Name="WorkoutCollectionView"
+                        ItemsSource="{Binding Exercises}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -98,7 +99,7 @@
                                     <RoundRectangle CornerRadius="10"/>
                                 </Border.StrokeShape>
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding EditCommand}" CommandParameter="{Binding}"/>
+                                    <TapGestureRecognizer Tapped="OnEditTapped"/>
                                 </Border.GestureRecognizers>
                                 <Label Text="✏️"
                                        FontSize="24"
@@ -117,7 +118,7 @@
                                     <RoundRectangle CornerRadius="10"/>
                                 </Border.StrokeShape>
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding DeleteCommand}" CommandParameter="{Binding}"/>
+                                    <TapGestureRecognizer Tapped="OnDeleteTapped"/>
                                 </Border.GestureRecognizers>
                                 <Label Text="🗑️"
                                        FontSize="24"
@@ -143,7 +144,7 @@
                 <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.2"/>
             </Border.Shadow>
             <Border.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding AddCommand}"/>
+                <TapGestureRecognizer Tapped="OnAddTapped"/>
             </Border.GestureRecognizers>
             <Label Text="➕ Thêm bài tập mới"
                    FontSize="18"

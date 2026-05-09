@@ -27,12 +27,10 @@
 
                 if (result)
                 {
-                    // 👉 bấm "Đăng nhập"
                     await Navigation.PushAsync(new LoginPage());
                 }
                 else
                 {
-                    // 👉 bấm "Trở lại"
                     await Navigation.PopModalAsync();
 
                 }

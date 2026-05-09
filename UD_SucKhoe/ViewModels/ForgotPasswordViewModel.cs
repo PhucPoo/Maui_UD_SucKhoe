@@ -14,13 +14,11 @@ public class ForgotPasswordViewModel
 
     public async Task<(bool Success, string Message)> CheckEmail(string email)
     {
-        // Validate rỗng
         if (string.IsNullOrWhiteSpace(email))
         {
             return (false, "Vui lòng nhập email");
         }
 
-        // Validate format
         if (!IsValidEmail(email))
         {
             return (false, "Email không hợp lệ");

@@ -9,7 +9,7 @@
 
         private async void OnCloseTapped(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            await Shell.Current.GoToAsync(nameof(MenuPage));
         }
 
         private async void OnMenuManagementTapped(object sender, EventArgs e)
